@@ -1,0 +1,239 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="100%" height="100%">
+  <defs>
+    <!-- GRADIENTS -->
+    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="60%" stop-color="#0EA5E9"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+    
+    <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#06B6D4"/>
+      <stop offset="50%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#0369A1"/>
+    </linearGradient>
+
+    <linearGradient id="spillGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E0F2FE" stop-opacity="0.9"/>
+      <stop offset="70%" stop-color="#67E8F9" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0.95"/>
+    </linearGradient>
+
+    <linearGradient id="damGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#CBD5E1"/>
+      <stop offset="50%" stop-color="#94A3B8"/>
+      <stop offset="100%" stop-color="#64748B"/>
+    </linearGradient>
+
+    <linearGradient id="sunGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFE600"/>
+      <stop offset="100%" stop-color="#FF9900"/>
+    </linearGradient>
+    
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- SKY BACKGROUND -->
+  <rect width="1200" height="800" fill="url(#skyGrad)"/>
+
+  <!-- CLOUDS -->
+  <g fill="#FFFFFF" opacity="0.95">
+    <path d="M 220 110 Q 250 80 290 90 Q 330 70 370 95 Q 410 85 430 115 Q 450 140 410 160 Q 220 170 220 110 Z"/>
+    <path d="M 680 90 Q 710 65 750 75 Q 790 55 830 80 Q 870 70 890 100 Q 910 125 870 145 Q 680 155 680 90 Z"/>
+  </g>
+
+  <!-- SMILEY FACE SUN (MATCHING SLIDE 1) -->
+  <g transform="translate(140, 120)">
+    <!-- RAYS -->
+    <g stroke="#FFD166" stroke-width="10" stroke-linecap="round">
+      <line x1="0" y1="-80" x2="0" y2="-95"/>
+      <line x1="56" y1="-56" x2="68" y2="-68"/>
+      <line x1="80" y1="0" x2="95" y2="0"/>
+      <line x1="56" y1="56" x2="68" y2="68"/>
+      <line x1="0" y1="80" x2="0" y2="95"/>
+      <line x1="-56" y1="56" x2="-68" y2="68"/>
+      <line x1="-80" y1="0" x2="-95" y2="0"/>
+      <line x1="-56" y1="-56" x2="-68" y2="-68"/>
+    </g>
+    <!-- SUN BODY -->
+    <circle r="65" fill="url(#sunGrad)" stroke="#F59E0B" stroke-width="5" filter="url(#shadow)"/>
+    <!-- EYES -->
+    <circle cx="-22" cy="-12" r="8" fill="#451A03"/>
+    <circle cx="22" cy="-12" r="8" fill="#451A03"/>
+    <circle cx="-20" cy="-15" r="3" fill="#FFFFFF"/>
+    <circle cx="24" cy="-15" r="3" fill="#FFFFFF"/>
+    <!-- CHEEKS -->
+    <ellipse cx="-34" cy="8" rx="9" ry="6" fill="#F43F5E" opacity="0.6"/>
+    <ellipse cx="34" cy="8" rx="9" ry="6" fill="#F43F5E" opacity="0.6"/>
+    <!-- SMILE -->
+    <path d="M -24 10 Q 0 34 24 10" fill="none" stroke="#451A03" stroke-width="6" stroke-linecap="round"/>
+  </g>
+
+  <!-- MOUNTAINS & GREEN HILLS BACKGROUND -->
+  <path d="M 0 380 Q 250 220 500 360 Q 750 200 1000 340 L 1200 320 L 1200 500 L 0 500 Z" fill="#059669" opacity="0.85"/>
+  <path d="M 0 420 Q 300 300 650 420 Q 950 280 1200 390 L 1200 600 L 0 600 Z" fill="#10B981"/>
+
+  <!-- CONCRETE WATER DAM STRUCTURE (BENDUNGAN AIR) -->
+  <g filter="url(#shadow)">
+    <!-- MAIN DAM WALL -->
+    <polygon points="150,380 1050,380 1120,620 80,620" fill="url(#damGrad)" stroke="#475569" stroke-width="4"/>
+    <!-- DAM CREST BRIDGE ROAD -->
+    <rect x="130" y="360" width="940" height="24" rx="6" fill="#E2E8F0" stroke="#64748B" stroke-width="3"/>
+    <g fill="#0EA5E9">
+      <rect x="160" y="348" width="12" height="14" rx="2"/>
+      <rect x="260" y="348" width="12" height="14" rx="2"/>
+      <rect x="360" y="348" width="12" height="14" rx="2"/>
+      <rect x="460" y="348" width="12" height="14" rx="2"/>
+      <rect x="560" y="348" width="12" height="14" rx="2"/>
+      <rect x="660" y="348" width="12" height="14" rx="2"/>
+      <rect x="760" y="348" width="12" height="14" rx="2"/>
+      <rect x="860" y="348" width="12" height="14" rx="2"/>
+      <rect x="960" y="348" width="12" height="14" rx="2"/>
+    </g>
+
+    <!-- WATER SPILLWAY SLUICE GATES (PINTU AIR) -->
+    <rect x="380" y="380" width="140" height="240" fill="#334155" stroke="#1E293B" stroke-width="4"/>
+    <rect x="540" y="380" width="140" height="240" fill="#334155" stroke="#1E293B" stroke-width="4"/>
+    <rect x="700" y="380" width="140" height="240" fill="#334155" stroke="#1E293B" stroke-width="4"/>
+
+    <!-- GATES MECHANISM WHEELS -->
+    <circle cx="450" cy="370" r="16" fill="#F59E0B" stroke="#B45309" stroke-width="4"/>
+    <circle cx="610" cy="370" r="16" fill="#F59E0B" stroke="#B45309" stroke-width="4"/>
+    <circle cx="770" cy="370" r="16" fill="#F59E0B" stroke="#B45309" stroke-width="4"/>
+  </g>
+
+  <!-- RUSHING WATER SPILLWAY FLOW (AIR BENDUNGAN) -->
+  <g>
+    <path d="M 390 400 Q 420 480 400 620 L 510 620 Q 500 480 510 400 Z" fill="url(#spillGrad)"/>
+    <path d="M 550 400 Q 580 480 560 620 L 670 620 Q 660 480 670 400 Z" fill="url(#spillGrad)"/>
+    <path d="M 710 400 Q 740 480 720 620 L 830 620 Q 820 480 830 400 Z" fill="url(#spillGrad)"/>
+  </g>
+
+  <!-- RESERVOIR LAKE & LOWER RIVER BASIN -->
+  <rect x="0" y="580" width="1200" height="220" fill="url(#waterGrad)"/>
+  
+  <!-- FOAM & WATER RIPPLES -->
+  <g stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.85">
+    <path d="M 370 620 Q 450 640 530 620 T 690 620 T 850 620"/>
+    <path d="M 100 660 Q 200 680 300 660 T 600 660 T 900 660 T 1100 660"/>
+    <path d="M 150 720 Q 350 740 550 720 T 950 720"/>
+  </g>
+
+  <!-- HYDRAULIC WATER PIPES & PUMP EQUIPMENT -->
+  <g filter="url(#shadow)">
+    <!-- PIPES ON LEFT -->
+    <path d="M 40 480 L 180 480 L 180 640" fill="none" stroke="#EF4444" stroke-width="22" stroke-linejoin="round"/>
+    <path d="M 40 480 L 180 480 L 180 640" fill="none" stroke="#B91C1C" stroke-width="14" stroke-linejoin="round"/>
+    <circle cx="180" cy="480" r="16" fill="#FCD34D"/>
+
+    <!-- PIPES ON RIGHT -->
+    <path d="M 1160 460 L 1020 460 L 1020 650" fill="none" stroke="#3B82F6" stroke-width="24" stroke-linejoin="round"/>
+    <path d="M 1160 460 L 1020 460 L 1020 650" fill="none" stroke="#1D4ED8" stroke-width="16" stroke-linejoin="round"/>
+    <circle cx="1020" cy="460" r="18" fill="#FCD34D"/>
+  </g>
+
+  <!-- SAFETY BANNER BOARD: PROYEK BANGUNAN AIR & BENDUNGAN -->
+  <g transform="translate(860, 100)" filter="url(#shadow)">
+    <rect x="0" y="0" width="300" height="150" rx="14" fill="#047857" stroke="#FEF08A" stroke-width="5"/>
+    <rect x="10" y="10" width="280" height="130" rx="10" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="6,4"/>
+    <text x="150" y="45" font-family="'Fredoka', sans-serif" font-weight="700" font-size="18" fill="#FFD166" text-anchor="middle">UTAMAKAN KESELAMATAN</text>
+    <text x="150" y="70" font-family="'Fredoka', sans-serif" font-weight="700" font-size="16" fill="#FFFFFF" text-anchor="middle">PROYEK BANGUNAN AIR</text>
+    <text x="150" y="95" font-family="'Fredoka', sans-serif" font-weight="700" font-size="15" fill="#67E8F9" text-anchor="middle">&amp; BENDUNGAN HIDROLIK</text>
+    <rect x="30" y="108" width="240" height="22" rx="6" fill="#F59E0B"/>
+    <text x="150" y="124" font-family="'Nunito', sans-serif" font-weight="800" font-size="12" fill="#0F172A" text-anchor="middle">🌊 K3 PEKERJAAN SIPIL AIR</text>
+  </g>
+
+  <!-- FOREGROUND GROUND DECK -->
+  <path d="M 0 690 L 1200 690 L 1200 800 L 0 800 Z" fill="#78350F"/>
+  <path d="M 0 680 L 1200 680 L 1200 700 L 0 700 Z" fill="#D97706"/>
+
+  <!-- KID ENGINEERS (EXACT MATCH BADGES & AVATARS) -->
+  
+  <!-- BOY ENGINEER (LEFT FOREGROUND) -->
+  <g transform="translate(320, 520)" filter="url(#shadow)">
+    <!-- BOY BODY & YELLOW VEST -->
+    <path d="M -45 110 L -35 190 L 35 190 L 45 110 Z" fill="#1D4ED8"/>
+    <rect x="-40" y="100" width="80" height="85" rx="10" fill="#F59E0B" stroke="#B45309" stroke-width="4"/>
+    <!-- VEST STRIPES -->
+    <rect x="-30" y="115" width="60" height="12" fill="#E2E8F0"/>
+    <rect x="-30" y="145" width="60" height="12" fill="#E2E8F0"/>
+    <rect x="-20" y="100" width="12" height="85" fill="#3B82F6"/>
+    <rect x="8" y="100" width="12" height="85" fill="#3B82F6"/>
+
+    <!-- JEANS & BOOTS -->
+    <rect x="-32" y="180" width="26" height="65" fill="#1E40AF"/>
+    <rect x="6" y="180" width="26" height="65" fill="#1E40AF"/>
+    <path d="M -42 235 L -8 235 L -8 260 Q -25 265 -42 260 Z" fill="#92400E" stroke="#451A03" stroke-width="3"/>
+    <path d="M 8 235 L 42 235 L 42 260 Q 25 265 8 260 Z" fill="#92400E" stroke="#451A03" stroke-width="3"/>
+
+    <!-- BOY HEAD & BLACK HAIR -->
+    <circle cx="0" cy="40" r="55" fill="#FDE047" stroke="#EAB308" stroke-width="4"/> <!-- HELMET BACK -->
+    <circle cx="0" cy="45" r="48" fill="#FDBA74"/> <!-- FACE SKIN -->
+    <!-- BLACK HAIR -->
+    <path d="M -48 30 Q -25 -15 0 -10 Q 25 -15 48 30 Q 30 5 -20 10 Z" fill="#0F172A"/>
+    <!-- WHITE HELMET FRONT -->
+    <path d="M -56 15 Q 0 -45 56 15 L 62 25 L -62 25 Z" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="4"/>
+    <!-- GEAR LOGO ON HELMET -->
+    <circle cx="0" cy="0" r="10" fill="#10B981"/>
+    <path d="M -5 0 L 5 0 M 0 -5 L 0 5" stroke="#FFFFFF" stroke-width="3"/>
+
+    <!-- EYES -->
+    <circle cx="-18" cy="45" r="11" fill="#0F172A"/>
+    <circle cx="18" cy="45" r="11" fill="#0F172A"/>
+    <circle cx="-15" cy="40" r="4" fill="#FFFFFF"/>
+    <circle cx="21" cy="40" r="4" fill="#FFFFFF"/>
+    <!-- SMILE -->
+    <path d="M -14 62 Q 0 78 14 62" fill="#EF4444" stroke="#991B1B" stroke-width="3"/>
+
+    <!-- BLUEPRINT ROLL IN HAND -->
+    <path d="M -70 120 L -30 160 L -15 145 L -55 105 Z" fill="#38BDF8" stroke="#0284C7" stroke-width="3"/>
+    <ellipse cx="-62" cy="112" rx="8" ry="12" fill="#E0F2FE"/>
+  </g>
+
+  <!-- GIRL ENGINEER (RIGHT FOREGROUND) -->
+  <g transform="translate(840, 520)" filter="url(#shadow)">
+    <!-- GIRL BODY & PINK STRIPED VEST -->
+    <path d="M -45 110 L -35 190 L 35 190 L 45 110 Z" fill="#EC4899"/>
+    <rect x="-40" y="100" width="80" height="85" rx="10" fill="#F43F5E" stroke="#BE123C" stroke-width="4"/>
+    <!-- VEST STRIPES -->
+    <rect x="-30" y="115" width="60" height="12" fill="#FFFFFF"/>
+    <rect x="-30" y="145" width="60" height="12" fill="#FFFFFF"/>
+
+    <!-- JEANS & PINK BOOTS -->
+    <rect x="-32" y="180" width="26" height="65" fill="#1E40AF"/>
+    <rect x="6" y="180" width="26" height="65" fill="#1E40AF"/>
+    <path d="M -42 235 L -8 235 L -8 260 Q -25 265 -42 260 Z" fill="#E11D48" stroke="#9F1239" stroke-width="3"/>
+    <path d="M 8 235 L 42 235 L 42 260 Q 25 265 8 260 Z" fill="#E11D48" stroke="#9F1239" stroke-width="3"/>
+
+    <!-- GIRL HEAD, BLACK HAIR & PINK BOW -->
+    <circle cx="0" cy="45" r="48" fill="#FDBA74"/> <!-- FACE SKIN -->
+    <!-- LONG BLACK HAIR -->
+    <path d="M -54 30 Q -65 90 -45 140 M 54 30 Q 65 90 45 140" stroke="#0F172A" stroke-width="22" stroke-linecap="round"/>
+    <path d="M -48 30 Q -25 -15 0 -10 Q 25 -15 48 30 Q 30 5 -20 10 Z" fill="#0F172A"/>
+
+    <!-- YELLOW HELMET FRONT -->
+    <path d="M -56 15 Q 0 -45 56 15 L 62 25 L -62 25 Z" fill="#FFD166" stroke="#F59E0B" stroke-width="4"/>
+    <!-- PINK BOW ON HELMET -->
+    <circle cx="-32" cy="0" r="10" fill="#F43F5E"/>
+    <path d="M -44 -8 L -20 8 M -44 8 L -20 -8" stroke="#F43F5E" stroke-width="8" stroke-linecap="round"/>
+    <!-- GEAR LOGO ON HELMET -->
+    <circle cx="0" cy="0" r="10" fill="#10B981"/>
+    <path d="M -5 0 L 5 0 M 0 -5 L 0 5" stroke="#FFFFFF" stroke-width="3"/>
+
+    <!-- EYES -->
+    <circle cx="-18" cy="45" r="11" fill="#0F172A"/>
+    <circle cx="18" cy="45" r="11" fill="#0F172A"/>
+    <circle cx="-15" cy="40" r="4" fill="#FFFFFF"/>
+    <circle cx="21" cy="40" r="4" fill="#FFFFFF"/>
+    <!-- SMILE -->
+    <path d="M -14 62 Q 0 78 14 62" fill="#EF4444" stroke="#991B1B" stroke-width="3"/>
+
+    <!-- CLIPBOARD IN HAND -->
+    <rect x="25" y="100" width="55" height="75" rx="6" fill="#38BDF8" stroke="#0284C7" stroke-width="3"/>
+    <rect x="32" y="110" width="41" height="55" fill="#FFFFFF"/>
+    <!-- CLIPBOARD SKETCH -->
+    <path d="M 38 120 L 68 120 M 38 132 L 60 132 M 38 144 L 65 144" stroke="#0EA5E9" stroke-width="3"/>
+  </g>
+</svg>

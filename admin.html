@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal CMS Backend & Bagi Hasil Mitra | Pustaka Cilik</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="admin.css?v=4.3">
+</head>
+<body>
+
+    <div class="admin-app-container">
+
+        <!-- ADMIN TOP HEADER BAR -->
+        <header class="admin-header">
+            <div class="admin-header-inner">
+                <div class="admin-brand">
+                    <img src="pustaka_cilik_logo_circle.png" class="admin-brand-official-logo" alt="Pustaka Cilik Official Logo">
+                    <div>
+                        <h1 class="admin-title">Backend CMS & Bagi Hasil Mitra</h1>
+                        <span class="admin-subtitle">Pustaka Cilik • Admin Content & Referral Management</span>
+                    </div>
+                </div>
+
+                <div class="admin-header-nav">
+                    <button class="nav-tab active" id="tabBooks"><i class="fa-solid fa-book"></i> Konten Flipbook</button>
+                    <button class="nav-tab" id="tabCategories"><i class="fa-solid fa-layer-group"></i> Kelola Kategori Buku</button>
+                    <button class="nav-tab" id="tabReferrals"><i class="fa-solid fa-handshake"></i> Bagi Hasil Referal</button>
+                    <button class="nav-tab" id="tabAuthors"><i class="fa-solid fa-feather-pointed"></i> Mitra Penulis & Royalti</button>
+                    <a href="index.html" class="btn btn-sm btn-outline-light" target="_blank">
+                        <i class="fa-solid fa-up-right-from-square"></i> Lihat Aplikasi Utama
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <main class="admin-main-content">
+
+            <!-- SECTION 1: FLIPBOOK CONTENT MANAGEMENT -->
+            <div id="sectionBooks" class="admin-section active">
+                
+                <!-- STATS OVERVIEW CARDS -->
+                <section class="admin-stats-grid">
+                    <div class="stat-box box-blue">
+                        <div class="stat-icon"><i class="fa-solid fa-book"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-num" id="statTotalBooks">0</span>
+                            <span class="stat-name">Total Flipbook</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-box box-gold">
+                        <div class="stat-icon"><i class="fa-solid fa-file-image"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-num" id="statTotalPages">0</span>
+                            <span class="stat-name">Total Halaman Terbit</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-box box-cyan">
+                        <div class="stat-icon"><i class="fa-solid fa-layer-group"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-num" id="statCategories">4</span>
+                            <span class="stat-name">Total Kategori</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-box box-emerald">
+                        <div class="stat-icon"><i class="fa-solid fa-cloud-check"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-num" id="statPublished">0</span>
+                            <span class="stat-name">Buku Status Terbit</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CONTROLS & SEARCH BAR -->
+                <section class="admin-controls-bar">
+                    <div class="search-filter-wrapper">
+                        <div class="admin-search-box">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="adminSearchInput" placeholder="Cari buku berdasarkan judul atau deskripsi...">
+                        </div>
+
+                        <select id="adminCatFilter" class="admin-select">
+                            <option value="all">Semua Kategori</option>
+                            <!-- Injected dynamically via JS from /api/categories -->
+                        </select>
+                    </div>
+
+                    <button class="btn btn-primary-admin" id="btnAddNewBook">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> Upload & Buat Flipbook Baru
+                    </button>
+                </section>
+
+                <!-- FLIPBOOKS CATALOG TABLE / GRID -->
+                <section class="admin-table-card">
+                    <div class="table-header">
+                        <h2><i class="fa-solid fa-folder-open"></i> Daftar Konten Flipbook & File Terunggah</h2>
+                        <span class="table-badge" id="tableCountBadge">Loading...</span>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="cms-table">
+                            <thead>
+                                <tr>
+                                    <th>Cover / Sampul</th>
+                                    <th>Judul Buku</th>
+                                    <th>Kategori</th>
+                                    <th>Jumlah Hal.</th>
+                                    <th>Status File</th>
+                                    <th>Aksi Upload & Edit Konten</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminBooksTbody">
+                                <!-- Injected via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- SECTION 2: REFERRAL & REVENUE SHARING (BAGI HASIL MITRA VIP) -->
+            <div id="sectionReferrals" class="admin-section hidden">
+                
+                <!-- REFERRAL STATS GRID -->
+                <section class="admin-stats-grid">
+                    <div class="stat-box box-gold">
+                        <div class="stat-icon"><i class="fa-solid fa-handshake"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-num" id="refStatPartners">0</span>
+                            <span class="stat-name">Mitra Referal Aktif</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-box box-blue">
+                        <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-num" id="refStatRevenue">Rp 0</span>
+                            <span class="stat-name">Total Omzet VIP Referal</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-box box-emerald">
+                        <div class="stat-icon"><i class="fa-solid fa-sack-dollar"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-num" id="refStatEarnings">Rp 0</span>
+                            <span class="stat-name">Total Bagi Hasil Mitra</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-box box-coral">
+                        <div class="stat-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-num" id="refStatPending">Rp 0</span>
+                            <span class="stat-name">Komisi Belum Dicairkan</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- NEW REFERRAL PARTNER FORM & TABLE -->
+                <div class="admin-grid-two-col">
+                    
+                    <!-- FORM TAMBAH MITRA REFERAL BARU -->
+                    <section class="admin-table-card form-card-fit">
+                        <div class="table-header">
+                            <h2><i class="fa-solid fa-user-plus"></i> Tambah Mitra Referal & Bagi Hasil Baru</h2>
+                        </div>
+                        <form id="formAddReferral" class="admin-form-body">
+                            <div class="form-group-admin">
+                                <label for="refPartnerName">Nama Mitra / Komunitas / Sekolah:</label>
+                                <input type="text" id="refPartnerName" placeholder="contoh: PAUD Ceria atau Bunda Rina" required>
+                            </div>
+
+                            <div class="form-group-admin">
+                                <label for="refCode">Kode Referal Unik:</label>
+                                <input type="text" id="refCode" placeholder="contoh: MITRA_SEKOLAH" style="text-transform:uppercase;" required>
+                            </div>
+
+                            <div class="form-row-admin">
+                                <div class="form-group-admin">
+                                    <label for="refCommissionRate">% Bagi Hasil Komisi Mitra:</label>
+                                    <input type="number" id="refCommissionRate" value="25" min="5" max="50" required>
+                                </div>
+                                <div class="form-group-admin">
+                                    <label for="refDiscountRate">% Diskon Pembeli VIP:</label>
+                                    <input type="number" id="refDiscountRate" value="10" min="0" max="30" required>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary-admin btn-block">
+                                <i class="fa-solid fa-plus-circle"></i> Buat Kode Referal Bagi Hasil
+                            </button>
+                        </form>
+                    </section>
+
+                    <!-- TABEL KELOLA MITRA REFERAL & PENCAIRAN KOMISI -->
+                    <section class="admin-table-card flex-fill">
+                        <div class="table-header">
+                            <h2><i class="fa-solid fa-list-check"></i> Daftar Mitra Referal & Pencairan Komisi Bagi Hasil</h2>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="cms-table">
+                                <thead>
+                                    <tr>
+                                        <th>Kode Referal</th>
+                                        <th>Nama Mitra</th>
+                                        <th>Bagi Hasil</th>
+                                        <th>Penjualan</th>
+                                        <th>Total Omzet</th>
+                                        <th>Komisi Mitra</th>
+                                        <th>Aksi Pencairan</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminReferralsTbody">
+                                    <!-- Injected via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                </div>
+
+            </div>
+
+            <!-- SECTION 3: MITRA PENULIS & BAGI HASIL ROYALTY PAY-PER-READ -->
+            <div id="sectionAuthors" class="admin-section">
+                
+                <section class="admin-stats-grid">
+                    <div class="stat-box box-gold">
+                        <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-num" id="statTotalAuthors">0</span>
+                            <span class="stat-name">Mitra Penulis Terdaftar</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-box box-emerald">
+                        <div class="stat-icon"><i class="fa-solid fa-book-open-reader"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-num" id="statTotalSystemReads">0</span>
+                            <span class="stat-name">Total Lembar Dibaca Sistem</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-box box-purple">
+                        <div class="stat-icon"><i class="fa-solid fa-wallet"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-num" id="statRoyaltyPool">Rp 20.000.000</span>
+                            <span class="stat-name">Alokasi Pool Royalti Bulan Ini</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TABEL KURASI BUKU PENGAJUAN PENULIS -->
+                <section class="admin-table-container" style="margin-bottom: 24px;">
+                    <div class="table-header">
+                        <h2><i class="fa-solid fa-clipboard-check"></i> Kurasi Buku Pengajuan Mitra Penulis</h2>
+                        <p>Tinjau dan kurasi kelayakan buku karya sebelum diterbitkan secara publik di aplikasi Pustaka Cilik.</p>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="admin-data-table">
+                            <thead>
+                                <tr>
+                                    <th>Tanggal Pengajuan</th>
+                                    <th>Nama Penulis</th>
+                                    <th>Judul Buku Karya</th>
+                                    <th>Kategori & Usia</th>
+                                    <th>Status Kurasi</th>
+                                    <th>Aksi Kurasi Admin</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyAuthorSubmissions">
+                                <tr>
+                                    <td colspan="6" class="text-center">Memuat daftar pengajuan buku...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- TABEL LAPORAN BAGI HASIL PENULIS (PAY-PER-READ ROYALTY) -->
+                <section class="admin-table-container">
+                    <div class="table-header">
+                        <h2><i class="fa-solid fa-receipt"></i> Laporan Bagi Hasil Penulis (*Pay-Per-Read Royalty*)</h2>
+                        <p>Sistem otomatis menghitung royalti transparan berdasarkan jumlah lembar dibaca pengguna VIP.</p>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="admin-data-table">
+                            <thead>
+                                <tr>
+                                    <th>Nama Penulis Mitra</th>
+                                    <th>Email & WhatsApp</th>
+                                    <th>Rekening Bank Payout</th>
+                                    <th>Total Lembar Dibaca</th>
+                                    <th>Porsi Dibaca (%)</th>
+                                    <th>Estimasi Royalti (Rp)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyAuthorsRoyalty">
+                                <tr>
+                                    <td colspan="6" class="text-center">Memuat laporan royalti penulis...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- SECTION 4: KELOLA KATEGORI BUKU & GAMBAR KATEGORI -->
+            <div id="sectionCategories" class="admin-section hidden">
+                <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 24px;">
+                    
+                    <!-- FORM TAMBAH / EDIT KATEGORI (SUPER SIMPEL) -->
+                    <section class="admin-card" style="background:#FFF; padding:20px; border-radius:16px; border:1.5px solid #E2E8F0; box-shadow:0 4px 14px rgba(0,0,0,0.04);">
+                        <div class="card-header-styled" style="border-bottom:1.5px dashed #E2E8F0; padding-bottom:12px; margin-bottom:16px;">
+                            <h2 style="font-size:1.1rem; color:#0F172A; margin:0;"><i class="fa-solid fa-folder-plus" style="color:#0EA5E9;"></i> Tambah / Edit Kategori</h2>
+                        </div>
+                        <form id="formCategorySave" style="display: flex; flex-direction: column; gap: 14px;">
+                            <input type="hidden" id="catEditId" value="">
+
+                            <div class="form-group-admin">
+                                <label for="catName"><i class="fa-solid fa-tag"></i> Nama Kategori:</label>
+                                <input type="text" id="catName" class="admin-input" placeholder="contoh: Teknologi & Robot" required style="width:100%; padding:10px; border:1.5px solid #CBD5E1; border-radius:10px;">
+                            </div>
+
+                            <div class="form-group-admin">
+                                <label for="catIcon"><i class="fa-solid fa-icons"></i> Icon Emoji (Pilihan 1):</label>
+                                <input type="text" id="catIcon" class="admin-input" placeholder="contoh: 🤖 atau 🚜" style="width:100%; padding:10px; border:1.5px solid #CBD5E1; border-radius:10px;">
+                            </div>
+
+                            <div class="form-group-admin">
+                                <label for="catIconImageFile"><i class="fa-solid fa-file-image"></i> Atau Upload Gambar Icon Kecil (Pilihan 2):</label>
+                                <input type="file" id="catIconImageFile" class="admin-input" accept="image/*" style="width:100%; padding:8px; border:1.5px solid #CBD5E1; border-radius:10px;">
+                                <span style="font-size:0.78rem; color:#0284C7; margin-top:5px; display:block; background:#E0F2FE; padding:6px 10px; border-radius:8px; font-weight:600;">
+                                    📌 <strong>Ukuran Rekomendasi: 64x64 px atau Ratio 1:1</strong> (Format PNG/JPG/WebP, Maksimal 2 MB).
+                                </span>
+                            </div>
+
+                            <div style="display: flex; gap: 10px; margin-top: 6px;">
+                                <button type="button" class="btn btn-primary-admin" id="btnSaveCat" onclick="handleGlobalCatSave(event)" style="flex:1; padding:12px; background:#0EA5E9; color:#FFF; font-weight:700; border-radius:10px; border:none; cursor:pointer;">
+                                    <i class="fa-solid fa-floppy-disk"></i> Simpan Kategori
+                                </button>
+                                <button type="button" class="btn btn-outline-admin" id="btnResetCat" style="display:none; padding:12px 18px; background:#E2E8F0; color:#475569; font-weight:700; border-radius:10px; border:none; cursor:pointer;">
+                                    Batal
+                                </button>
+                            </div>
+                        </form>
+                    </section>
+
+                    <!-- TABEL DAFTAR KATEGORI BUKU -->
+                    <section class="admin-table-card flex-fill" style="background:#FFF; padding:20px; border-radius:16px; border:1.5px solid #E2E8F0; box-shadow:0 4px 14px rgba(0,0,0,0.04);">
+                        <div class="table-header" style="border-bottom:1.5px dashed #E2E8F0; padding-bottom:12px; margin-bottom:16px;">
+                            <h2 style="font-size:1.1rem; color:#0F172A; margin:0;"><i class="fa-solid fa-layer-group" style="color:#0EA5E9;"></i> Daftar Kategori Buku Aktif</h2>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="cms-table" style="width:100%; border-collapse:collapse;">
+                                <thead>
+                                    <tr style="background:#F8FAFC; text-align:left;">
+                                        <th style="padding:10px;">Icon / Gambar Kecil</th>
+                                        <th style="padding:10px;">Nama Kategori</th>
+                                        <th style="padding:10px; text-align:center;">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyCategories">
+                                    <!-- Injected via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- MODAL 1: FORM BUAT / EDIT METADATA BUKU & UPLOAD FILE SAMPUL -->
+    <div id="bookMetaModal" class="admin-modal-overlay hidden">
+        <div class="admin-modal-card">
+            <div class="admin-modal-header">
+                <h3 id="bookModalTitle"><i class="fa-solid fa-cloud-arrow-up"></i> Upload & Buat Flipbook Baru</h3>
+                <button class="btn-close-admin" id="btnCloseMetaModal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <form id="formBookMeta" class="admin-form-body">
+                <input type="hidden" id="editBookId">
+                <input type="hidden" id="inputBookIcon" value="📘">
+                <input type="hidden" id="inputBookBg" value="linear-gradient(135deg, #0EA5E9, #0284C7)">
+
+                <div class="form-group-admin">
+                    <label for="inputBookTitle">Judul Flipbook:</label>
+                    <input type="text" id="inputBookTitle" placeholder="contoh: Cara Kerja Mesin Excavator" required>
+                </div>
+
+                <div class="form-group-admin">
+                    <label for="inputBookCategory">Kategori:</label>
+                    <select id="inputBookCategory" class="admin-select" required>
+                        <option value="">-- Pilih Kategori Flipbook --</option>
+                        <option value="sains">Sains 📘</option>
+                        <option value="infrastruktur">Infrastruktur 📘</option>
+                        <option value="mesin">Mesin 📘</option>
+                        <option value="tumbuhan">Tumbuhan 📘</option>
+                        <option value="hewan">Hewan 📘</option>
+                        <option value="konstruksi">Konstruksi 📘</option>
+                        <option value="manufaktur">Manufaktur 📘</option>
+                        <option value="lalu_lintas">Lalu Lintas 📘</option>
+                        <option value="medis">Medis 📘</option>
+                    </select>
+                </div>
+
+                <!-- UPLOAD FILE GAMBAR SAMPUL COVER BUKU -->
+                <div class="form-group-admin file-upload-box">
+                    <label><i class="fa-solid fa-image"></i> Upload File Gambar Sampul (Cover Image):</label>
+                    <div class="file-dropzone-ui">
+                        <input type="file" id="inputBookCoverFile" accept="image/*">
+                        <div class="dropzone-text">
+                            <i class="fa-solid fa-cloud-arrow-up cloud-icon"></i>
+                            <span>Klik atau tarik file gambar sampul ke sini (PNG, JPG, WebP)</span>
+                        </div>
+                    </div>
+                    <input type="hidden" id="inputBookCoverUrl">
+                    <div id="coverImgPreviewContainer" class="img-preview-box hidden">
+                        <img id="coverImgPreview" src="" alt="Pratinjau Sampul">
+                        <button type="button" class="btn-remove-img" id="btnRemoveCoverImg"><i class="fa-solid fa-xmark"></i> Hapus Gambar</button>
+                    </div>
+                </div>
+
+                <div class="form-group-admin">
+                    <label for="inputBookDesc">Deskripsi Ringkas Buku:</label>
+                    <textarea id="inputBookDesc" rows="3" placeholder="Penjelasan singkat mengenai konten buku ini..."></textarea>
+                </div>
+
+                <div class="admin-modal-footer">
+                    <button type="button" class="btn btn-secondary-admin" id="btnCancelMeta">Batal</button>
+                    <button type="submit" class="btn btn-primary-admin"><i class="fa-solid fa-floppy-disk"></i> Simpan Metadata Buku</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 2: INTERACTIVE PAGE CONTENT EDITOR WITH FILE UPLOADERS FOR PAGES -->
+    <div id="pageEditorModal" class="admin-modal-overlay hidden">
+        <div class="admin-modal-card modal-lg">
+            <div class="admin-modal-header">
+                <div>
+                    <h3><i class="fa-solid fa-images"></i> Upload Gambar & Editor Konten Halaman</h3>
+                    <span class="sub-heading-info" id="editingBookSubTitle">Buku: Rahasia Mesin Excavator</span>
+                </div>
+                <button class="btn-close-admin" id="btnClosePageModal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="admin-modal-body page-editor-body">
+                <div class="page-editor-toolbar" style="display:flex;align-items:center;justify-content:space-between;background:#F0F9FF;padding:14px 20px;border-radius:14px;border:1.5px solid #38BDF8;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+                    <div>
+                        <strong style="color:#0284C7;font-size:1.05rem;display:flex;align-items:center;gap:8px;">
+                            <i class="fa-solid fa-book-open" style="color:#0EA5E9;"></i> Editor Konten Halaman Flipbook:
+                        </strong>
+                        <div style="font-size:0.85rem;color:#475569;margin-top:2px;">Buku dapat dibuat lebih dari 10 halaman (tanpa batas). Klik tombol hijau untuk menambah lembar halaman baru (+2 Hal).</div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:12px;margin-left:auto;">
+                        <span class="pages-count-indicator" id="pageSpreadsCount" style="background:#0EA5E9;color:#FFF;font-weight:800;padding:6px 14px;border-radius:20px;font-size:0.9rem;">Total: 5 Lembar (10 Halaman)</span>
+                        <button type="button" class="btn btn-sm btn-success-admin" id="btnAddPageSpread" style="background:#10B981;color:#FFF;font-weight:800;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 12px rgba(16,185,129,0.3);">
+                            <i class="fa-solid fa-circle-plus" style="font-size:1.1rem;"></i> Tambah Lembar Baru (+2 Hal)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PAGES SPREAD CARDS CONTAINER -->
+                <div class="pages-spreads-container" id="pagesSpreadsContainer">
+                    <!-- Dynamic page spread forms with File Uploaders generated via JavaScript -->
+                </div>
+
+                <!-- BOTTOM ADD SPREAD BUTTON FOR CONVENIENT ACCESS -->
+                <div style="text-align:center;margin-top:24px;padding:18px;background:#F8FAFC;border:2px dashed #CBD5E1;border-radius:14px;">
+                    <button type="button" class="btn btn-success-admin" id="btnAddPageSpreadBottom" style="background:#10B981;color:#FFF;font-weight:800;padding:12px 26px;border-radius:12px;border:none;cursor:pointer;font-size:1rem;display:inline-flex;align-items:center;gap:10px;box-shadow:0 6px 18px rgba(16,185,129,0.35);">
+                        <i class="fa-solid fa-circle-plus" style="font-size:1.2rem;"></i> Tambah Lembar Halaman Baru (+2 Halaman)
+                    </button>
+                    <div style="font-size:0.85rem;color:#64748B;margin-top:8px;">Klik untuk menambahkan Halaman 11, 12, 13, 14, dst. tanpa batasan.</div>
+                </div>
+            </div>
+
+            <div class="admin-modal-footer">
+                <button type="button" class="btn btn-secondary-admin" id="btnCancelPageEdit">Batal</button>
+                <button type="button" class="btn btn-primary-admin" id="btnSavePagesContent">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Simpan Seluruh Konten & File Ke Database
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js?v=4.6"></script>
+</body>
+</html>

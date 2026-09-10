@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pustaka Cilik | Indonesian Kids Library</title>
+    <meta name="description" content="Aplikasi Pustaka Cilik: Perpustakaan digital interaktif flipbook teknik untuk anak usia 5-12 tahun.">
+    <!-- Google Fonts: Fredoka & Nunito for Clean & Playful Aesthetics -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- PWA Progressive Web App Manifest & Theme Color -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0EA5E9">
+    <link rel="stylesheet" href="style.css?v=6.0">
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(reg => {
+                    console.log('✅ PWA Service Worker registered:', reg.scope);
+                }).catch(err => console.log('PWA Service Worker reg error:', err));
+            });
+        }
+    </script>
+</head>
+<body>
+
+    <!-- FLOATING BACKGROUND ENGINEERING ICONS -->
+    <div class="bg-floating-elements" aria-hidden="true">
+        <span class="bg-item item-1">🏗️</span>
+        <span class="bg-item item-2">🚜</span>
+        <span class="bg-item item-3">🌉</span>
+        <span class="bg-item item-4">🏙️</span>
+        <span class="bg-item item-5">🚚</span>
+        <span class="bg-item item-6">📐</span>
+        <span class="bg-item item-7">流域</span>
+        <span class="bg-item item-8">🧱</span>
+        <span class="bg-item item-9">🗼</span>
+        <span class="bg-item item-10">🔨</span>
+        <span class="bg-item item-11">🦺</span>
+        <span class="bg-item item-12">🏗️</span>
+    </div>
+
+    <!-- APP CONTAINER -->
+    <div id="app" class="app-container">
+
+        <!-- HEADER (CLEAN TECH BLUE & GOLD TOP BAR) -->
+        <header class="main-header">
+            <div class="header-inner">
+                <div class="brand" id="brandLogo">
+                    <img src="pustaka_cilik_logo_circle.png" class="brand-official-logo" alt="Pustaka Cilik Official Logo">
+                    <div class="brand-text">
+                        <span class="brand-title">Pustaka Cilik</span>
+                        <span class="brand-subtitle">Indonesian Kids Library</span>
+                    </div>
+                </div>
+
+                <!-- TOP NAV MENU ITEMS -->
+                <nav class="header-nav">
+                    <button class="nav-pill active" id="navHome"><i class="fa-solid fa-house"></i> Beranda</button>
+                    <button class="nav-pill" id="navCatalog"><i class="fa-solid fa-book-open"></i> Koleksi Buku</button>
+                    <button class="nav-pill nav-author-glow" id="btnOpenAuthorModal"><i class="fa-solid fa-feather-pointed"></i> Kemitraan Penulis (Upload Karya)</button>
+                    <button class="nav-pill nav-partner-glow" id="btnOpenPartnerReg"><i class="fa-solid fa-handshake"></i> Mitra Referal (Gratis)</button>
+                    <a href="admin.html" class="nav-pill" target="_blank" style="text-decoration:none;"><i class="fa-solid fa-sliders"></i> Portal CMS Admin</a>
+                </nav>
+
+                <div class="user-status-pill" id="userStatusPill">
+                    <span class="badge badge-guest" id="statusBadge"><i class="fa-solid fa-eye"></i> Mode Pratinjau (4 Hal)</span>
+                    <div class="header-auth-buttons">
+                        <button class="btn btn-sm btn-login" id="btnHeaderLogin"><i class="fa-solid fa-right-to-bracket"></i> Masuk</button>
+                        <button class="btn btn-sm btn-register" id="btnHeaderRegister"><i class="fa-solid fa-user-plus"></i> Daftar VIP</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- SCENE 1: HERO DASHBOARD WITH INTERACTIVE 5-SLIDE CAROUSEL BACKGROUND -->
+        <section id="sceneEntrance" class="scene active">
+
+            <!-- HERO INTERACTIVE 5-SLIDE BACKGROUND SLIDESHOW -->
+            <div class="hero-slideshow-container" id="heroSlideshow">
+                <!-- SLIDE 1 -->
+                <div class="hero-slide active" data-slide="0">
+                    <img src="uploads/slide1_construction_full.jpg" alt="Proyek Konstruksi Insinyur Cilik & Alat Berat">
+                </div>
+
+                <!-- SLIDE 2 -->
+                <div class="hero-slide" data-slide="1">
+                    <img src="uploads/slide2_housing_full.jpg" alt="Proyek Perumahan & Konstruksi Bangunan Insinyur Cilik">
+                </div>
+
+                <!-- SLIDE 3 -->
+                <div class="hero-slide" data-slide="2">
+                    <img src="uploads/slide3_bridge_full.jpg" alt="Proyek Pembangunan Jembatan & Struktur Beton Insinyur Cilik">
+                </div>
+
+                <!-- SLIDE 4 -->
+                <div class="hero-slide" data-slide="3">
+                    <img src="uploads/slide4_tollroad_full.jpg" alt="Proyek Pembangunan Jalan Tol & Pengukuran Lapangan Insinyur Cilik">
+                </div>
+
+                <!-- SLIDE 5 -->
+                <div class="hero-slide" data-slide="4">
+                    <img src="uploads/slide5_studioteknik_full.jpg" alt="Studio Teknik Rancang Hitung Bangun Insinyur Cilik">
+                </div>
+
+                <!-- SLIDESHOW NAV BUTTONS (PREV / NEXT) -->
+                <button class="slideshow-btn prev-btn" id="btnSlidePrev" aria-label="Slide Sebelumnya"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="slideshow-btn next-btn" id="btnSlideNext" aria-label="Slide Selanjutnya"><i class="fa-solid fa-chevron-right"></i></button>
+
+                <!-- SLIDESHOW INDICATOR DOTS -->
+                <div class="slideshow-dots-wrapper" id="slideshowDots">
+                    <button class="slide-dot active" data-index="0" title="Slide 1"></button>
+                    <button class="slide-dot" data-index="1" title="Slide 2"></button>
+                    <button class="slide-dot" data-index="2" title="Slide 3"></button>
+                    <button class="slide-dot" data-index="3" title="Slide 4"></button>
+                    <button class="slide-dot" data-index="4" title="Slide 5"></button>
+                </div>
+            </div>
+
+            <div class="hero-content-wrapper">
+                
+                <!-- TOP ELEGANT FROSTED BANNER -->
+                <div class="hero-header-box frosted-glass-banner">
+                    <div class="hero-tag-pill">🚀 PERPUSTAKAAN INTERAKTIF ANAK INDONESIA</div>
+                    <h1 class="hero-title">Selamat Datang di Pustaka Cilik!</h1>
+                    <p class="hero-subtitle">Jelajahi Dunia Sains, Teknologi & 100+ Flipbook Interaktif Anak!</p>
+                </div>
+
+                <!-- SPACER TO ENSURE CENTER KID ENGINEERS ARTWORK IS PROMINENTLY DOMINANT & UNOBSTRUCTED -->
+                <div class="hero-kids-center-spacer"></div>
+
+                <!-- BOTTOM ENTRANCE DOOR & ACTION BUTTONS -->
+                <div class="hero-bottom-action-group">
+                    
+                    <!-- ENTRANCE DOOR: COMPACT CONSTRUCTION SAFETY-YELLOW DOUBLE DOOR -->
+                    <div class="entrance-door-container" id="doorContainer">
+                        
+                        <!-- COMPACT SAFETY-YELLOW ARCHED DOUBLE DOOR CARD -->
+                        <div class="library-3d-gate-card rounded-arch-gate compact-yellow-door" id="doorFrame">
+                            
+                            <!-- MOCKUP DOUBLE DOOR LEAVES (CONSTRUCTION SAFETY YELLOW WITH CENTER HANDLES) -->
+                            <div class="mockup-door-leaves-wrapper">
+                                <!-- LEFT DOOR LEAF (SAFETY YELLOW) -->
+                                <div class="door-leaf leaf-left" id="doorLeafLeft">
+                                    <div class="door-handle handle-left"></div>
+                                </div>
+
+                                <!-- CENTER SPLIT LINE -->
+                                <div class="door-center-split-line"></div>
+
+                                <!-- RIGHT DOOR LEAF (SAFETY YELLOW) -->
+                                <div class="door-leaf leaf-right" id="doorLeafRight">
+                                    <div class="door-handle handle-right"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- BOTTOM OVERLAY BADGE: KLIK UNTUK MASUK (WARNA TECH BLUE BIRU DISIMPAN) -->
+                            <div class="door-click-overlay">
+                                <span class="portal-text-badge"><i class="fa-solid fa-key"></i> KLIK UNTUK MASUK</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- HERO ACTION BUTTONS -->
+                    <div class="hero-action-buttons">
+                        <button class="btn btn-hero-primary btn-bounce" id="btnEnterLibrary">
+                            <i class="fa-solid fa-door-open"></i> MASUK KE PUSTAKA SEKARANG
+                        </button>
+                        <button class="btn btn-hero-secondary" id="btnOpenSubscribeModal">
+                            <i class="fa-solid fa-ticket"></i> Dapatkan Tiket Langganan VIP
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ELEGANT BLUE WAVE BOTTOM DIVIDER -->
+            <div class="grassy-hills-divider">
+                <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                    <path d="M0,32L60,42.7C120,53,240,75,360,80C480,85,600,75,720,58.7C840,43,960,21,1080,21.3C1200,21,1320,43,1380,53.3L1440,64L1440,120L1380,120C1320,120,1200,120,60,120L0,120Z" fill="#0EA5E9"></path>
+                </svg>
+            </div>
+        </section>
+
+        <!-- SCENE 2: LIBRARY HALL & CATEGORIES (CONTINUOUS FLOW WITH HERO ENTRANCE) -->
+        <section id="sceneLibrary" class="scene">
+            <!-- COHESIVE CATEGORY AVATARS -->
+            <div class="category-carousel-section">
+                <div class="carousel-title">PILIH KATEGORI BUKU:</div>
+                <div class="category-circles-grid">
+                    <div class="cat-circle-card active" data-cat="all">
+                        <div class="circle-avatar">📚</div>
+                        <span class="circle-label">Semua Buku</span>
+                    </div>
+
+                    <div class="cat-circle-card" data-cat="favorites">
+                        <div class="circle-avatar">⭐</div>
+                        <span class="circle-label">Favoritku (<span id="favCount">2</span>)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LIBRARY ROOM & BOOKSHELF GRID -->
+            <div class="library-room">
+                <div class="room-banner-playful">
+                    <div class="banner-content">
+                        <h3><i class="fa-solid fa-book-bookmark"></i> Kategori: <span id="currentCatTitle">Semua Koleksi Buku Pustaka Cilik</span></h3>
+                        <p>Klik buku mana saja untuk membaca! Pengunjung dapat menikmati pratinjau gratis 4 halaman pertama.</p>
+                    </div>
+
+                    <div class="search-box-wrapper">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="inputSearchBook" placeholder="Cari judul buku...">
+                    </div>
+
+                    <button class="btn btn-secondary-pill btn-sm" id="btnBackToEntrance"><i class="fa-solid fa-arrow-up"></i> Ke Pintu Utama</button>
+                </div>
+
+                <!-- PLAYFUL BOOKSHELF GRID -->
+                <div class="shelf-container" id="shelfGrid">
+                    <!-- Books dynamically injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- FREQUENTLY ASKED QUESTIONS (FAQ / Q&A SECTION FOR PARENTS) -->
+        <section id="sceneFaq" class="faq-section-playful">
+            <div class="faq-container">
+                <div class="faq-header text-center">
+                    <span class="faq-tag">💡 PUSAT INFORMASI ORANG TUA</span>
+                    <h2>Pertanyaan Sering Diajukan (FAQ / Q&A)</h2>
+                    <p>Temukan jawaban cepat seputar akses langganan VIP, kemitraan sekolah, dan panduan membaca anak.</p>
+                </div>
+
+                <div class="faq-accordion-grid">
+                    <div class="faq-card">
+                        <button class="faq-question">
+                            <span><i class="fa-solid fa-circle-question"></i> Bagaimanakah cara mengakses seluruh halaman buku VIP?</span>
+                            <i class="fa-solid fa-chevron-down faq-arrow"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Orang tua cukup mengklik tombol <strong>"Daftar VIP"</strong> atau <strong>"Dapatkan Tiket VIP"</strong>, memilih paket langganan (Bulanan/Tahunan), dan menyelesaikan transaksi via transfer bank atau e-wallet. Akses VIP akan langsung otomatis aktif seketika!</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-card">
+                        <button class="faq-question">
+                            <span><i class="fa-solid fa-mobile-screen-button"></i> Apakah akun VIP dapat dibuka di banyak perangkat bersamaan?</span>
+                            <i class="fa-solid fa-chevron-down faq-arrow"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Ya! 1 Akun Keluarga VIP dapat digunakan bersamaan di smartphone Android, iPhone, iPad/Tablet, maupun PC Laptop tanpa ada batasan perangkat.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-card">
+                        <button class="faq-question">
+                            <span><i class="fa-solid fa-headset"></i> Bagaimana jika pembayaran berhasil namun mengalami kendala akses?</span>
+                            <i class="fa-solid fa-chevron-down faq-arrow"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Tim Bantuan CS Pustaka Cilik siap membantu Anda! Anda dapat langsung mengklik tombol <strong>WhatsApp Bantuan</strong> di pojok kanan bawah atau mengirim bukti transfer ke email <code>bantuan@pustakacilik.id</code> untuk aktivasi instan 1-menit.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-card">
+                        <button class="faq-question">
+                            <span><i class="fa-solid fa-building-columns"></i> Bagaimana cara Sekolah / PAUD / Komunitas daftar Mitra Referal (Gratis)?</span>
+                            <i class="fa-solid fa-chevron-down faq-arrow"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Klik menu <strong>"Mitra Referal"</strong> pada navigasi atas. Isi nama lembaga/komunitas dan usulkan Kode Referal Unik. Setelah disetujui, mitra berhak mendapat komisi bagi hasil 30% untuk setiap orang tua yang mendaftar VIP!</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-card">
+                        <button class="faq-question">
+                            <span><i class="fa-solid fa-feather-pointed"></i> Bagaimana cara mendaftar Mitra Penulis & sistem bagi hasilnya?</span>
+                            <i class="fa-solid fa-chevron-down faq-arrow"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Klik menu <strong>"Kemitraan Penulis"</strong> di navigasi atas. Isi form pendaftaran mitra dan unggah karya buku Anda. Royalti dihitung secara adil berdasarkan porsi jumlah lembar dibaca (<em>Pay-Per-Read</em>) oleh pengguna VIP setiap bulannya!</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-card">
+                        <button class="faq-question">
+                            <span><i class="fa-solid fa-magnifying-glass-chart"></i> Apakah karya buku dikurasi terlebih dahulu & bagaimana jika tidak lolos kurasi?</span>
+                            <i class="fa-solid fa-chevron-down faq-arrow"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p><strong>Ya, 100% Wajib Dikurasi!</strong> Semua karya ditinjau tim kurator Pustaka Cilik (1-3 hari kerja) untuk menjamin konten ramah anak (*Child-Safe*). Keputusan kurasi bersifat final (<strong>Diterima</strong> atau <strong>Ditolak</strong>). Jika karya tidak lolos kurasi (Ditolak), karya <strong>TIDAK AKAN PERNAH DITERBITKAN</strong> ke publik dan file terunggah dijamin aman & dihapus dari server.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-card">
+                        <button class="faq-question">
+                            <span><i class="fa-solid fa-shield-halved"></i> Apakah buku Pustaka Cilik bebas dari iklan & aman untuk anak?</span>
+                            <i class="fa-solid fa-chevron-down faq-arrow"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>100% Bebas Iklan Komersial! Seluruh materi flipbook disusun secara ilmiah & ramah anak (Child-Safe Content) tanpa ada tautan luar yang berbahaya untuk si kecil.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN FOOTER WITH COMPLETE IDENTITY, CONTACTS, LOCATION, LEGAL & HELP MENU -->
+        <footer id="mainFooter" class="main-footer-playful">
+            <div class="footer-inner">
+                
+                <!-- FOOTER COL 1: BRAND IDENTITY & LOCATION -->
+                <div class="footer-col col-brand">
+                    <div class="footer-brand">
+                        <div class="logo-badge-sm"><i class="fa-solid fa-gears"></i></div>
+                        <div>
+                            <h3 class="footer-title">Pustaka Cilik</h3>
+                            <span class="footer-subtitle">Indonesian Kids Library</span>
+                        </div>
+                    </div>
+                    <p class="footer-about">
+                        Perpustakaan digital interaktif flipbook pertama di Indonesia untuk mengenalkan dunia sains, teknologi, & ilmu pengetahuan interaktif kepada anak usia 5–12 tahun.
+                    </p>
+                    <div class="footer-meta-info">
+                        <p><i class="fa-solid fa-location-dot"></i> <span>Studio Edukasi Pustaka Cilik<br>Jakarta Selatan 12260</span></p>
+                        <p><i class="fa-solid fa-envelope"></i> Email Support: <a href="mailto:bantuan@pustakacilik.id">bantuan@pustakacilik.id</a></p>
+                        <p><i class="fa-solid fa-handshake-angle"></i> Email Kemitraan: <a href="mailto:mitra@pustakacilik.id">mitra@pustakacilik.id</a></p>
+                    </div>
+                </div>
+
+                <!-- FOOTER COL 2: QUICK NAVIGATION -->
+                <div class="footer-col col-nav">
+                    <h4>Navigasi Utama</h4>
+                    <ul class="footer-links">
+                        <li><a href="#sceneEntrance"><i class="fa-solid fa-chevron-right"></i> Beranda</a></li>
+                        <li><a href="#sceneLibrary"><i class="fa-solid fa-chevron-right"></i> Koleksi Buku</a></li>
+                        <li><a href="#" id="footBtnAuthor"><i class="fa-solid fa-chevron-right"></i> Kemitraan Penulis (Upload Karya)</a></li>
+                        <li><a href="#" id="footBtnPartner"><i class="fa-solid fa-chevron-right"></i> Mitra Referal (Gratis)</a></li>
+                        <li><a href="admin.html" target="_blank"><i class="fa-solid fa-chevron-right"></i> Portal CMS Admin Backend</a></li>
+                    </ul>
+                </div>
+
+                <!-- FOOTER COL 3: HELP MENU & SUPPORT -->
+                <div class="footer-col col-help">
+                    <h4>Pusat Bantuan Kendala</h4>
+                    <p class="help-desc">Mengalami kendala saat aktivasi VIP, pembayaran, atau pendaftaran mitra? Hubungi Tim CS Support kami:</p>
+                    <a href="https://wa.me/6281234567890?text=Halo%20CS%20Pustaka%20Cilik,%20saya%20butuh%20bantuan%20terkait%20pembelian%20VIP" target="_blank" class="btn btn-wa-help">
+                        <i class="fa-brands fa-whatsapp"></i> Chat CS WhatsApp
+                    </a>
+                </div>
+
+                <!-- FOOTER COL 4: DISCLAIMER & CHILD PRIVACY -->
+                <div class="footer-col col-legal">
+                    <h4>Kepatuhan & Keamanan</h4>
+                    <div class="legal-badge-box">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>Privasi Data Anak Terjamin & Bebas Iklan 100%</span>
+                    </div>
+                    <p class="disclaimer-text">
+                        <strong>Disclaimer:</strong> Materi buku digital pada platform Pustaka Cilik dirancang khusus sebagai media edukasi ilmu pengetahuan, sains, & teknologi anak. Hak cipta materi terlindungi undang-undang.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- FOOTER BOTTOM COPYRIGHT -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-inner">
+                    <p>© 2026 <strong>Pustaka Cilik</strong>. Hak Cipta Dilindungi Undang-Undang.</p>
+                    <div class="footer-bottom-links">
+                        <a href="#">Syarat & Ketentuan</a> • 
+                        <a href="#">Kebijakan Privasi</a> • 
+                        <a href="#">Panduan Orang Tua</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- FLOATING WHATSAPP HELP WIDGET IN BOTTOM RIGHT CORNER -->
+        <a href="https://wa.me/6281234567890?text=Halo%20CS%20Pustaka%20Cilik,%20saya%20mengalami%20kendala%20saat%20proses%20pembelian" target="_blank" class="floating-wa-widget" title="Butuh Bantuan Pembelian? Chat CS WhatsApp">
+            <span class="wa-tooltip">Ada Kendala Pembelian? Chat CS 💬</span>
+            <div class="wa-icon-circle"><i class="fa-brands fa-whatsapp"></i></div>
+        </a>
+
+        <!-- DEDICATED MODAL PENDAFTARAN MITRA BAGI HASIL (GRATIS) -->
+        <div id="partnerRegModal" class="modal-overlay hidden">
+            <div class="auth-modal-card-playful border-gold">
+                <button class="btn-close-modal" id="btnClosePartnerReg"><i class="fa-solid fa-xmark"></i></button>
+
+                <form id="formPartnerReg" class="auth-form-body">
+                    <div class="auth-header text-center">
+                        <span class="auth-icon-badge">🤝</span>
+                        <h2>Pendaftaran Mitra Referal (Gratis)</h2>
+                        <p>Bergabunglah menjadi mitra Sekolah / PAUD / Komunitas Pustaka Cilik & dapatkan komisi bagi hasil 30% per langganan VIP!</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regPartnerName"><i class="fa-solid fa-building-user"></i> Nama Lembaga / Mitra / Influencer:</label>
+                        <input type="text" id="regPartnerName" placeholder="contoh: PAUD Ceria atau Bunda Rina" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="regPartnerEmail"><i class="fa-solid fa-envelope"></i> Email Mitra:</label>
+                            <input type="email" id="regPartnerEmail" placeholder="mitra@gmail.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="regPartnerPhone"><i class="fa-solid fa-phone"></i> No. WhatsApp:</label>
+                            <input type="text" id="regPartnerPhone" placeholder="081234567890" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regPartnerCode"><i class="fa-solid fa-gift"></i> Usulan Kode Referal Unik:</label>
+                        <input type="text" id="regPartnerCode" placeholder="contoh: PAUD_CERIA" style="text-transform:uppercase;" required>
+                    </div>
+
+                    <div style="background: #F0F9FF; border: 1.5px solid #0EA5E9; padding: 12px 14px; border-radius: 12px; font-size: 0.85rem; color: #0369A1; margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
+                        <i class="fa-solid fa-circle-info" style="color: #0284C7; font-size: 1.2rem;"></i>
+                        <span><strong>Praktis & Cepat:</strong> Nomor rekening bank pencairan komisi cukup diisikan saat Anda akan mencairkan komisi (*Withdrawal*) nanti.</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-blue-pill btn-block">
+                        <i class="fa-solid fa-paper-plane"></i> KIRIM PENDAFTARAN MITRA REFERAL (GRATIS)
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- DEDICATED MODAL LOGIN TERPISAH -->
+        <div id="loginModal" class="modal-overlay hidden">
+            <div class="auth-modal-card-playful border-blue">
+                <button class="btn-close-modal" id="btnCloseLogin"><i class="fa-solid fa-xmark"></i></button>
+
+                <form id="formLogin" class="auth-form-body">
+                    <div class="auth-header text-center">
+                        <span class="auth-icon-badge">🔑</span>
+                        <h2>Masuk Akun Orang Tua</h2>
+                        <p>Masukkan email/No. HP untuk mengakses Pustaka Cilik.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginEmail"><i class="fa-solid fa-envelope"></i> Email atau No. HP:</label>
+                        <input type="text" id="loginEmail" placeholder="contoh: orangtua@gmail.com atau 081234567890" required value="orangtua.insinyur@gmail.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword"><i class="fa-solid fa-key"></i> Kata Sandi:</label>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="loginPassword" placeholder="Masukkan kata sandi..." required value="12345678">
+                            <button type="button" class="btn-toggle-pwd" id="toggleLoginPwd"><i class="fa-solid fa-eye"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="remember-me"><input type="checkbox" checked> Ingat Saya</label>
+                        <a href="#" class="forgot-link">Lupa Kata Sandi?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-blue-pill btn-block">
+                        <i class="fa-solid fa-right-to-bracket"></i> MASUK KE AKUN
+                    </button>
+
+                    <div class="social-divider"><span>atau masuk lebih cepat</span></div>
+
+                    <div class="social-login-grid">
+                        <button type="button" class="btn btn-social-pill" id="btnGoogleAuth">
+                            <i class="fa-brands fa-google"></i> Google Sign-In
+                        </button>
+                        <button type="button" class="btn btn-social-pill" id="btnSmsAuth">
+                            <i class="fa-solid fa-comment-sms"></i> SMS OTP
+                        </button>
+                    </div>
+
+                    <div class="auth-switch-footer text-center">
+                        <span>Belum punya akun?</span>
+                        <button type="button" class="btn-link-switch" id="linkToRegister">Daftar Akun Baru di Sini</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- DEDICATED MODAL DAFTAR/REGISTRASI TERPISAH -->
+        <div id="registerModal" class="modal-overlay hidden">
+            <div class="auth-modal-card-playful border-gold">
+                <button class="btn-close-modal" id="btnCloseRegister"><i class="fa-solid fa-xmark"></i></button>
+
+                <form id="formRegister" class="auth-form-body">
+                    <div class="auth-header text-center">
+                        <span class="auth-icon-badge">👷</span>
+                        <h2>Buat Akun Insinyur Cilik</h2>
+                        <p>Daftarkan akun keluarga untuk membaca 100+ buku di Pustaka Cilik.</p>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-user"></i> Nama Orang Tua:</label>
+                            <input type="text" placeholder="Nama lengkap Anda..." required value="Budi Santoso">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-child"></i> Nama Anak:</label>
+                            <input type="text" placeholder="Nama insinyur cilik..." required value="Roni">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-envelope"></i> Email / No. HP:</label>
+                            <input type="text" placeholder="Email aktif..." required value="orangtua.insinyur@gmail.com">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-cake-candles"></i> Usia Anak:</label>
+                            <select class="form-select">
+                                <option value="5">5 Tahun</option>
+                                <option value="6">6 Tahun</option>
+                                <option value="7" selected>7 Tahun</option>
+                                <option value="8">8 Tahun</option>
+                                <option value="9">9 Tahun</option>
+                                <option value="10">10 Tahun</option>
+                                <option value="11">11 Tahun</option>
+                                <option value="12">12 Tahun</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-key"></i> Buat Kata Sandi:</label>
+                        <input type="password" placeholder="Minimal 6 karakter..." required value="12345678">
+                    </div>
+
+                    <button type="submit" class="btn btn-blue-pill btn-block">
+                        <i class="fa-solid fa-user-plus"></i> DAFTAR AKUN SEKARANG
+                    </button>
+
+                    <div class="auth-switch-footer text-center">
+                        <span>Sudah memiliki akun?</span>
+                        <button type="button" class="btn-link-switch" id="linkToLogin">Masuk Akun di Sini</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- SCENE 3: INTERACTIVE FLIPBOOK READER MODAL -->
+        <div id="flipbookModal" class="modal-overlay hidden">
+            <div class="flipbook-modal-card-playful">
+                <!-- Reader Top Bar -->
+                <div class="reader-header-playful">
+                    <div class="reader-title-info">
+                        <span class="badge-accent" id="readerCategoryBadge">Teknik & Mesin</span>
+                        <h3 id="readerBookTitle">Rahasia Mesin & Roda Gigi</h3>
+                    </div>
+                    
+                    <!-- AUDIO STORYTELLING CONTROLS -->
+                    <div class="audio-controls-panel">
+                        <button class="btn-audio-toggle" id="btnToggleAudio" title="Nyalakan/Matikan Audio Narasi & Suara Latar">
+                            <i class="fa-solid fa-volume-high" id="audioIcon"></i>
+                            <span id="audioStatusText">Audio: On</span>
+                        </button>
+                        <div class="audio-indicator hidden" id="audioEqualizer">
+                            <span class="bar b1"></span>
+                            <span class="bar b2"></span>
+                            <span class="bar b3"></span>
+                        </div>
+                    </div>
+
+                    <button class="btn-close-modal" id="btnCloseReader"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <!-- FLIPBOOK CONTAINER & PAGE TURN ANIMATION -->
+                <div class="flipbook-viewport">
+                    <button class="nav-arrow nav-prev" id="btnPrevPage"><i class="fa-solid fa-chevron-left"></i></button>
+                    
+                    <div class="book-stage" id="bookStage">
+                        <!-- Left & Right Pages -->
+                        <div class="book-page page-left" id="pageLeft">
+                            <div class="page-content" id="pageLeftContent"></div>
+                        </div>
+                        <div class="book-page page-right" id="pageRight">
+                            <div class="page-content" id="pageRightContent"></div>
+                        </div>
+                    </div>
+
+                    <button class="nav-arrow nav-next" id="btnNextPage"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+
+                <!-- READER BOTTOM CONTROLS -->
+                <div class="reader-footer-playful">
+                    <div class="page-indicator">
+                        Halaman <strong id="currentPageNum">3</strong> dari <strong id="totalPagesNum">8</strong>
+                    </div>
+
+                    <div class="reader-actions">
+                        <button class="btn-bookmark-outline" id="btnBookmark"><i class="fa-regular fa-bookmark"></i> Tandai Halaman</button>
+                        <button class="btn-download-gold" id="btnDownloadBook" title="Simpan Baca Offline (Khusus VIP)"><i class="fa-solid fa-bookmark"></i> Simpan Baca Offline (VIP)</button>
+                        <button class="btn-play-cyan" id="btnPlayStory"><i class="fa-solid fa-play"></i> <span id="btnStoryText">Putar Narasi Cerita</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DEDICATED VIP OFFLINE READING MODAL -->
+        <div id="downloadVipModal" class="modal-overlay hidden">
+            <div class="auth-modal-card-playful border-gold" style="max-width: 520px; text-align: left;">
+                <button class="btn-close-modal" id="btnCloseDownloadVip"><i class="fa-solid fa-xmark"></i></button>
+
+                <div class="modal-header-playful" style="text-align: center; margin-bottom: 20px;">
+                    <div class="logo-circle-md" style="background: linear-gradient(135deg, #FFD166, #F59E0B); width: 60px; height: 60px; font-size: 1.8rem; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: #78350F; box-shadow: 0 6px 18px rgba(245, 158, 11, 0.4);">
+                        <i class="fa-solid fa-bookmark"></i>
+                    </div>
+                    <h3 style="font-family: var(--font-heading); color: #0B2545; font-size: 1.5rem; margin-bottom: 4px;" id="downloadModalBookTitle">Simpan Untuk Dibaca Offline</h3>
+                    <span class="badge-vip" style="background: linear-gradient(135deg, #0EA5E9, #0284C7); color: white; padding: 4px 14px; border-radius: 12px; font-weight: 800; font-size: 0.8rem; display: inline-block; margin-top: 4px;"><i class="fa-solid fa-crown"></i> Khusus Anggota VIP Aktif</span>
+                </div>
+
+                <div style="background: rgba(255, 243, 212, 0.90); border: 2.5px solid #FFD166; border-radius: 16px; padding: 18px; margin-bottom: 20px;">
+                    <h4 style="font-family: var(--font-heading); color: #78350F; font-size: 1.05rem; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-shield-halved" style="color: #D97706;"></i> Ketentuan Fitur Baca Offline:
+                    </h4>
+                    <ul style="color: #1E3A8A; font-size: 0.92rem; line-height: 1.65; padding-left: 20px; margin: 0;">
+                        <li>Buku tersimpan aman **di dalam aplikasi** untuk dibaca kapan saja **tanpa kuota internet**.</li>
+                        <li>Akses baca offline berlaku penuh selama akun keluarga Anda **aktif berlangganan VIP**.</li>
+                        <li>Bebas dari risiko kebocoran file / pembajakan karena tersimpan terenkripsi di perangkat Anda.</li>
+                    </ul>
+                </div>
+
+                <div style="margin-bottom: 20px; font-size: 0.92rem; color: #0B2545; font-weight: 700; background: #F0F9FF; border: 1.5px solid #0EA5E9; padding: 12px 16px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between;">
+                    <span><i class="fa-solid fa-wifi-slash" style="color: #0EA5E9;"></i> Mode: Bebas Kuota Internet</span>
+                    <span style="color: #0284C7;">Status: Terlindungi (Protected)</span>
+                </div>
+
+                <button class="btn btn-gold-pill btn-block" id="btnConfirmVipDownload" style="font-size: 1.05rem; padding: 14px; box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4); text-transform: uppercase;">
+                    <i class="fa-solid fa-bookmark"></i> SIMPAN BUKU UNTUK BACA OFFLINE
+                </button>
+            </div>
+        </div>
+
+        <!-- PAYWALL / SUBSCRIPTION MODAL WITH INTEGRATED REFERRAL & BAGI HASIL MITRA CODE -->
+        <div id="subscribeModal" class="modal-overlay hidden">
+            <div class="subscribe-modal-card-playful border-gold-glow">
+                <button class="btn-close-modal" id="btnCloseSubscribe"><i class="fa-solid fa-xmark"></i></button>
+                
+                <div class="sub-header text-left">
+                    <span class="sub-icon-badge">🎟️</span>
+                    <h2 class="sub-gold-title">Dapatkan Akses Penuh Perpustakaan</h2>
+                    <p class="sub-sky-desc">Bebaskan rasa ingin tahu anak dengan 100+ buku interaktif tanpa iklan.</p>
+                </div>
+
+                <!-- INPUT EMAIL OR NO HP ORANG TUA -->
+                <div class="sub-email-input-group">
+                    <label for="subEmailInput"><i class="fa-solid fa-envelope"></i> Email atau No. HP Orang Tua:</label>
+                    <input type="text" id="subEmailInput" placeholder="orangtua.insinyur@gmail.com" value="orangtua.insinyur@gmail.com">
+                </div>
+
+                <!-- INPUT KODE REFERAL / MITRA BAGI HASIL -->
+                <div class="sub-referral-group">
+                    <label for="subReferralCode"><i class="fa-solid fa-gift"></i> Punya Kode Referal / Mitra Sekolah? (Opsional):</label>
+                    <div class="referral-input-wrapper">
+                        <input type="text" id="subReferralCode" placeholder="contoh: MITRA_SEKOLAH atau INSINYUR20" style="text-transform:uppercase;">
+                        <button type="button" class="btn btn-sm btn-gold-pill" id="btnApplyReferral">Gunakan Kode</button>
+                    </div>
+                    <div id="referralMsg" class="referral-status-msg hidden"></div>
+                </div>
+
+                <!-- SUBSCRIPTION PLAN CARDS SIDE-BY-SIDE GRID -->
+                <div class="plan-cards">
+                    <div class="plan-card" id="planMonthly" data-plan="monthly">
+                        <div class="plan-badge badge-cyan">AKSES BEBAS</div>
+                        <h4>Paket Bulanan</h4>
+                        <div class="plan-price" id="priceMonthlyDisplay">Rp 29.000 <span>/ bulan</span></div>
+                        <p class="plan-desc">Akses tak terbatas ke seluruh buku anak. Bisa dibatalkan kapan saja.</p>
+                    </div>
+
+                    <div class="plan-card active" id="planAnnual" data-plan="annual">
+                        <div class="plan-badge badge-popular-gold">PALING HEMAT (DISKON 30%)</div>
+                        <h4>Paket Tahunan</h4>
+                        <div class="plan-price" id="priceAnnualDisplay">Rp 249.000 <span>/ tahun</span></div>
+                        <p class="plan-desc">Setara Rp 20rb/bulan! Termasuk akses gratis untuk buku kategori baru mendatang.</p>
+                    </div>
+                </div>
+
+                <div class="sub-footer text-center">
+                    <button class="btn btn-green-cta btn-block" id="btnConfirmSubscribe">
+                        <i class="fa-solid fa-lock"></i> BAYAR & BUKA AKSES PERPUSTAKAAN
+                    </button>
+                    <p class="sub-disclaimer"><i class="fa-solid fa-shield-halved"></i> Transaksi aman. Bebas akses di Android & iOS.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PARENT DASHBOARD / PROFIL MODAL -->
+        <div id="parentDashboardModal" class="modal-overlay hidden">
+            <div class="subscribe-modal-card-playful border-gold-glow">
+                <button class="btn-close-modal" id="btnCloseParentDashboard"><i class="fa-solid fa-xmark"></i></button>
+                
+                <div class="sub-header text-center">
+                    <span class="sub-icon-badge">👨‍👩‍👧‍👦</span>
+                    <h2>Dashboard Orang Tua & Profil Insinyur Cilik</h2>
+                    <p>Kelola akses akun Pustaka Cilik & pantau literasi membaca anak.</p>
+                </div>
+
+                <div class="dashboard-stats-grid">
+                    <div class="stat-card">
+                        <i class="fa-solid fa-crown stat-icon gold"></i>
+                        <div class="stat-info">
+                            <span class="stat-label">Status Langganan</span>
+                            <span class="stat-val" id="dashSubStatus">VIP Aktif (Tahunan)</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fa-solid fa-book-open-reader stat-icon cyan"></i>
+                        <div class="stat-info">
+                            <span class="stat-label">Buku Dibaca</span>
+                            <span class="stat-val">8 dari 100 Buku</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fa-solid fa-clock stat-icon emerald"></i>
+                        <div class="stat-info">
+                            <span class="stat-label">Waktu Membaca</span>
+                            <span class="stat-val">3 Jam 45 Menit</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PERSONAL USER REFERRAL LINK SHARE SECTION -->
+                <div class="user-referral-share-box">
+                    <h4><i class="fa-solid fa-share-nodes"></i> Bagikan Kode Referal Keluarga & Dapatkan Cashback:</h4>
+                    <p>Bagikan tautan ini ke grup WhatsApp / sekolah anak. Anda & teman akan mendapatkan bonus langganan!</p>
+                    <div class="referral-share-input-group">
+                        <input type="text" id="userMyRefLink" readonly value="http://localhost:3000/?ref=TEKNIK-BUDI88">
+                        <button class="btn btn-sm btn-gold-pill" id="btnCopyMyRefLink"><i class="fa-solid fa-copy"></i> Salin Tautan</button>
+                    </div>
+                </div>
+
+                <div class="auth-box">
+                    <label><i class="fa-solid fa-user-gear"></i> Akun Terdaftar:</label>
+                    <input type="text" id="dashEmail" readonly value="orangtua.insinyur@gmail.com">
+                </div>
+
+                <div class="sub-footer">
+                    <button class="btn btn-secondary-pill btn-block" id="btnLogoutUser">
+                        <i class="fa-solid fa-right-from-bracket"></i> Keluar Akun / Ganti Profil
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- AUTHOR PARTNER REGISTRATION & BOOK SUBMISSION MODAL -->
+        <div id="authorPartnerModal" class="modal-overlay hidden">
+            <div class="auth-modal-card-playful border-gold" style="max-width: 640px; text-align: left;">
+                <button class="btn-close-modal" id="btnCloseAuthorModal"><i class="fa-solid fa-xmark"></i></button>
+                
+                <div class="auth-header text-center" style="margin-bottom: 16px;">
+                    <span class="auth-icon-badge">✍️</span>
+                    <h2 style="color: #0B2545; font-size: 1.6rem; font-family: var(--font-heading); margin-bottom: 6px;">Kemitraan Penulis Pustaka Cilik</h2>
+                    <p style="color: #64748B; font-size: 0.92rem; margin: 0;">Unggah Karya Buku Anak Anda & Dapatkan Skema Bagi Hasil Adil Berdasarkan Jumlah Dibaca!</p>
+                </div>
+
+                <div class="author-benefit-banner-light">
+                    <div class="benefit-item">
+                        <i class="fa-solid fa-chart-line" style="color: #D97706;"></i>
+                        <div>
+                            <strong style="color: #1E293B;">Bagi Hasil Adil (*Pay-Per-Read*)</strong>
+                            <span style="color: #475569;">Komisi dihitung transparan dari porsi jumlah lembar dibaca pengguna VIP.</span>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fa-solid fa-clipboard-check" style="color: #0284C7;"></i>
+                        <div>
+                            <strong style="color: #1E293B;">Proses Kurasi (1-3 Hari)</strong>
+                            <span style="color: #475569;">Setiap karya ditinjau tim kurator agar sesuai standar edukasi ramah anak.</span>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fa-solid fa-user-shield" style="color: #059669;"></i>
+                        <div>
+                            <strong style="color: #1E293B;">Jaminan Hak Cipta & Kerahasiaan</strong>
+                            <span style="color: #475569;">Karya yang tidak lolos kurasi <strong>TIDAK DITERBITKAN</strong> & file terunggah dijamin aman.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TABS: PENDAFTARAN MITRA / UPLOAD KARYA BUKU -->
+                <div class="modal-tab-header">
+                    <button class="modal-tab-btn active" id="tabAuthorRegister"><i class="fa-solid fa-id-card"></i> Form Pendaftaran Mitra</button>
+                    <button class="modal-tab-btn" id="tabAuthorSubmitBook"><i class="fa-solid fa-cloud-arrow-up"></i> Form Upload Karya Baru</button>
+                </div>
+
+                <!-- TAB CONTENT 1: PENDAFTARAN MITRA -->
+                <form id="formAuthorRegister" class="auth-form-body" style="margin-top: 15px;">
+                    <div class="form-group">
+                        <label for="authorRegName"><i class="fa-solid fa-user-pen"></i> Nama Penulis / Studio Kreatif:</label>
+                        <input type="text" id="authorRegName" placeholder="Contoh: Drs. Budi Santoso, M.Pd." required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="authorRegEmail"><i class="fa-solid fa-envelope"></i> Email Aktif:</label>
+                            <input type="email" id="authorRegEmail" placeholder="email@domain.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="authorRegWhatsapp"><i class="fa-brands fa-whatsapp"></i> No. WhatsApp:</label>
+                            <input type="text" id="authorRegWhatsapp" placeholder="0812xxxxxxxx" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="authorRegBio"><i class="fa-solid fa-align-left"></i> Biografi Singkat & Latar Belakang Penulis:</label>
+                        <textarea id="authorRegBio" rows="2" placeholder="Tuliskan latar belakang pendidikan, keahlian, atau pengalaman membuat karya buku anak..."></textarea>
+                    </div>
+
+                    <div style="background: #F0F9FF; border: 1.5px solid #0EA5E9; padding: 12px 14px; border-radius: 12px; font-size: 0.85rem; color: #0369A1; margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
+                        <i class="fa-solid fa-circle-info" style="color: #0284C7; font-size: 1.2rem;"></i>
+                        <span><strong>Praktis & Cepat:</strong> Nomor rekening bank pencairan komisi cukup diisikan saat Anda akan mencairkan royalti (*Withdrawal*) nanti.</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-blue-pill btn-block">
+                        <i class="fa-solid fa-paper-plane"></i> DAFTAR JADI MITRA PENULIS
+                    </button>
+                </form>
+
+                <!-- TAB CONTENT 2: UPLOAD KARYA BUKU (HIDDEN BY DEFAULT) -->
+                <form id="formAuthorSubmitBook" class="auth-form-body hidden" style="margin-top: 15px;">
+                    <div class="form-group">
+                        <label for="authorSubmitName"><i class="fa-solid fa-user-pen"></i> Nama Penulis Terdaftar:</label>
+                        <input type="text" id="authorSubmitName" placeholder="Nama Penulis Mitra..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="authorBookTitle"><i class="fa-solid fa-book-bookmark"></i> Judul Buku Karya:</label>
+                        <input type="text" id="authorBookTitle" placeholder="Contoh: Petualangan Antariksa Si Cilik" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="authorBookCategory"><i class="fa-solid fa-list"></i> Kategori Ilmu:</label>
+                            <select id="authorBookCategory">
+                                <option value="Sains & Alam">Sains & Alam</option>
+                                <option value="Teknik & Mesin">Teknik & Mesin</option>
+                                <option value="Teknologi & Robot">Teknologi & Robot</option>
+                                <option value="Konstruksi & Sipil">Konstruksi & Sipil</option>
+                                <option value="Cerita & Karakter">Cerita & Karakter</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="authorBookAgeGroup"><i class="fa-solid fa-child"></i> Kelompok Usia:</label>
+                            <select id="authorBookAgeGroup">
+                                <option value="3-6 Tahun">3-6 Tahun</option>
+                                <option value="5-8 Tahun">5-8 Tahun</option>
+                                <option value="7-12 Tahun">7-12 Tahun</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="authorBookCoverFile"><i class="fa-solid fa-image"></i> Upload Gambar Sampul Cover (Sudah Termasuk Teks, Ratio 1:1, Maks 5 MB):</label>
+                        <input type="file" id="authorBookCoverFile" accept="image/*" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="authorBookDesc"><i class="fa-solid fa-align-left"></i> Sinopsis / Deskripsi Ringkas Buku:</label>
+                        <textarea id="authorBookDesc" rows="2" placeholder="Jelaskan ringkasan materi & pesan kebaikan yang disampaikan dalam buku karya ini..." required></textarea>
+                    </div>
+
+                    <!-- CONTAINER UPLOAD PER-LEMBAR HALAMAN BUKU & AUDIO NARASI -->
+                    <div style="background: #F0F9FF; border: 1.5px solid #BAE6FD; border-radius: 16px; padding: 16px; margin-bottom: 16px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                            <h4 style="font-family: var(--font-heading); color: #0284C7; font-size: 1rem; margin: 0; display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-book-open"></i> Upload Isi Lembar Halaman & Audio Narasi (Per-Lembar)
+                            </h4>
+                            <span style="font-size: 0.75rem; background: #E0F2FE; color: #0369A1; padding: 3px 10px; border-radius: 10px; font-weight: 700;">Wajib Minimal 1 Lembar</span>
+                        </div>
+                        <p style="font-size: 0.8rem; color: #475569; margin-bottom: 14px; line-height: 1.4;">
+                            Unggah gambar ilustrasi lengkap (sudah termasuk teks cerita di dalam gambar) & audio narasi suara penulis untuk setiap lembar halaman flipbook.
+                        </p>
+
+                        <div id="authorSpreadsContainer">
+                            <!-- DYNAMIC SPREAD ITEM 1 (DEFAULT) -->
+                            <div class="spread-upload-card" data-spread-index="1" style="background: #FFFFFF; border: 1.5px solid #CBD5E1; border-radius: 14px; padding: 14px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px dashed #E2E8F0;">
+                                    <strong style="color: #0F172A; font-size: 0.88rem;"><i class="fa-solid fa-file-image" style="color: #0EA5E9;"></i> Lembar 1 (Halaman 1 - 2)</strong>
+                                    <span class="spread-number-badge" style="font-size: 0.75rem; color: #0284C7; font-weight: 800; background: #E0F2FE; padding: 2px 8px; border-radius: 8px;">Lembar Awal</span>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 10px;">
+                                    <label style="font-size: 0.82rem;"><i class="fa-solid fa-image"></i> Gambar Ilustrasi Lembar 1 (Termasuk Teks, Ratio 16:9, Maks 5 MB):</label>
+                                    <input type="file" class="spread-image-file" accept="image/*" required>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label style="font-size: 0.82rem;"><i class="fa-solid fa-microphone-lines"></i> Audio Narasi Suara Penulis Lembar 1 (Format MP3/WAV, Maks 10 MB):</label>
+                                    <input type="file" class="spread-audio-file" accept="audio/*">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-sm btn-gold-pill" id="btnAddSpreadItem" style="width: 100%; font-size: 0.88rem; padding: 10px; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <i class="fa-solid fa-plus-circle"></i> Tambah Lembar Halaman Baru (Lembar 2, 3, dst.)
+                        </button>
+                    </div>
+
+                    <button type="submit" class="btn btn-blue-pill btn-block">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> KIRIM BUKU KARYA UNTUK DIKURASI ADMIN
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="app.js?v=6.1"></script>
+</body>
+</html>

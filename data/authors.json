@@ -1,0 +1,26 @@
+[
+  {
+    "id": "auth-101",
+    "name": "Drs. Budi Santoso, M.Pd.",
+    "email": "budi.santoso@email.com",
+    "whatsapp": "081298765432",
+    "bankName": "BCA",
+    "bankAccount": "8830192831",
+    "accountHolder": "Budi Santoso",
+    "bio": "Penulis & Pendidik Sains Anak dengan pengalaman 15 tahun.",
+    "submittedBooksCount": 2,
+    "joinedDate": "2026-08-15"
+  },
+  {
+    "id": "auth-102",
+    "name": "Siti Rahmawati, S.T.",
+    "email": "siti.rahmawati@email.com",
+    "whatsapp": "085712345678",
+    "bankName": "Mandiri",
+    "bankAccount": "13700098231",
+    "accountHolder": "Siti Rahmawati",
+    "bio": "Insinyur Sipil & Ilustrator Buku Edukasi Anak.",
+    "submittedBooksCount": 1,
+    "joinedDate": "2026-08-20"
+  }
+]

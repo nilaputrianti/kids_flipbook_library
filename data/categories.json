@@ -1,0 +1,65 @@
+[
+  {
+    "id": "sains",
+    "name": "Sains",
+    "icon": "📘",
+    "description": "",
+    "image": "/uploads/category_sains_1788708048827.png"
+  },
+  {
+    "id": "infrastruktur",
+    "name": "Infrastruktur",
+    "icon": "📘",
+    "description": "",
+    "image": "/uploads/file_1788709569710_915.png"
+  },
+  {
+    "id": "mesin",
+    "name": "Mesin",
+    "icon": "📘",
+    "description": "",
+    "image": "/uploads/file_1788709388079_969.png"
+  },
+  {
+    "id": "tumbuhan",
+    "name": "Tumbuhan",
+    "icon": "📘",
+    "description": "",
+    "image": "/uploads/file_1788709438950_702.png"
+  },
+  {
+    "id": "hewan",
+    "name": "Hewan",
+    "icon": "📘",
+    "description": "",
+    "image": "/uploads/file_1788708648264_696.jpg"
+  },
+  {
+    "id": "konstruksi",
+    "name": "Konstruksi",
+    "icon": "📘",
+    "description": "",
+    "image": "/uploads/file_1788709513647_568.png"
+  },
+  {
+    "id": "manufaktur",
+    "name": "Manufaktur",
+    "icon": "📘",
+    "description": "",
+    "image": "/uploads/file_1788709633656_456.jpg"
+  },
+  {
+    "id": "lalu_lintas",
+    "name": "Lalu Lintas",
+    "icon": "📘",
+    "description": "",
+    "image": "/uploads/file_1788709005275_144.png"
+  },
+  {
+    "id": "medis",
+    "name": "Medis",
+    "icon": "📘",
+    "description": "",
+    "image": "/uploads/file_1788709232215_320.png"
+  }
+]

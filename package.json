@@ -1,0 +1,21 @@
+{
+  "name": "pustaka-teknik-cilik",
+  "version": "1.0.0",
+  "description": "Aplikasi Pustaka Teknik Cilik - Interactive Engineering Flipbook Library for Kids",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "flipbook",
+    "kids",
+    "engineering",
+    "library",
+    "pustaka-teknik-cilik"
+  ],
+  "author": "Pustaka Teknik Cilik",
+  "license": "ISC",
+  "dependencies": {
+    "jimp": "^1.6.1"
+  }
+}
