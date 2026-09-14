@@ -99,35 +99,8 @@ function saveReferralsData(data) {
 function getAuthorsData() {
   try {
     if (!fs.existsSync(AUTHORS_FILE)) {
-      // Default sample author data
-      const defaultAuthors = [
-        {
-          id: 'auth-101',
-          name: 'Drs. Budi Santoso, M.Pd.',
-          email: 'budi.santoso@email.com',
-          whatsapp: '081298765432',
-          bankName: 'BCA',
-          bankAccount: '8830192831',
-          accountHolder: 'Budi Santoso',
-          bio: 'Penulis & Pendidik Sains Anak dengan pengalaman 15 tahun.',
-          submittedBooksCount: 2,
-          joinedDate: '2026-08-15'
-        },
-        {
-          id: 'auth-102',
-          name: 'Siti Rahmawati, S.T.',
-          email: 'siti.rahmawati@email.com',
-          whatsapp: '085712345678',
-          bankName: 'Mandiri',
-          bankAccount: '13700098231',
-          accountHolder: 'Siti Rahmawati',
-          bio: 'Insinyur Sipil & Ilustrator Buku Edukasi Anak.',
-          submittedBooksCount: 1,
-          joinedDate: '2026-08-20'
-        }
-      ];
-      saveAuthorsData(defaultAuthors);
-      return defaultAuthors;
+      saveAuthorsData([]);
+      return [];
     }
     const content = fs.readFileSync(AUTHORS_FILE, 'utf8');
     return JSON.parse(content);
@@ -412,7 +385,7 @@ const server = http.createServer(async (req, res) => {
       const newBook = await parseRequestBody(req);
       if (!newBook.title) {
         res.writeHead(400, { 'Content-Type': MIME_TYPES['.json'] });
-        res.end(JSON.stringify({ success: false, error: 'Judul buku wajib diisi' }));
+        res.end(JSON.stringify({ success: false, error: 'Judul flipbook wajib diisi' }));
         return;
       }
 
@@ -440,7 +413,7 @@ const server = http.createServer(async (req, res) => {
       saveBooksData(books);
 
       res.writeHead(201, { 'Content-Type': MIME_TYPES['.json'] });
-      res.end(JSON.stringify({ success: true, message: 'Buku berhasil ditambahkan!', data: bookToSave }));
+      res.end(JSON.stringify({ success: true, message: 'Flipbook berhasil ditambahkan!', data: bookToSave }));
     } catch (err) {
       res.writeHead(400, { 'Content-Type': MIME_TYPES['.json'] });
       res.end(JSON.stringify({ success: false, error: 'Format JSON request tidak valid' }));
@@ -458,7 +431,7 @@ const server = http.createServer(async (req, res) => {
 
       if (index === -1) {
         res.writeHead(404, { 'Content-Type': MIME_TYPES['.json'] });
-        res.end(JSON.stringify({ success: false, error: 'Buku tidak ditemukan untuk diperbarui' }));
+        res.end(JSON.stringify({ success: false, error: 'Flipbook tidak ditemukan untuk diperbarui' }));
         return;
       }
 
@@ -476,7 +449,7 @@ const server = http.createServer(async (req, res) => {
       saveBooksData(books);
 
       res.writeHead(200, { 'Content-Type': MIME_TYPES['.json'] });
-      res.end(JSON.stringify({ success: true, message: 'Buku berhasil diperbarui!', data: books[index] }));
+      res.end(JSON.stringify({ success: true, message: 'Flipbook berhasil diperbarui!', data: books[index] }));
     } catch (err) {
       res.writeHead(400, { 'Content-Type': MIME_TYPES['.json'] });
       res.end(JSON.stringify({ success: false, error: 'Format JSON request tidak valid' }));
@@ -494,10 +467,10 @@ const server = http.createServer(async (req, res) => {
     if (books.length < initialLength) {
       saveBooksData(books);
       res.writeHead(200, { 'Content-Type': MIME_TYPES['.json'] });
-      res.end(JSON.stringify({ success: true, message: 'Buku berhasil dihapus!' }));
+      res.end(JSON.stringify({ success: true, message: 'Flipbook berhasil dihapus!' }));
     } else {
       res.writeHead(404, { 'Content-Type': MIME_TYPES['.json'] });
-      res.end(JSON.stringify({ success: false, error: 'Buku tidak ditemukan' }));
+      res.end(JSON.stringify({ success: false, error: 'Flipbook tidak ditemukan' }));
     }
     return;
   }
@@ -609,7 +582,7 @@ const server = http.createServer(async (req, res) => {
         bankName: newRef.bankName ? newRef.bankName.trim() : 'BCA',
         accountNumber: newRef.accountNumber ? newRef.accountNumber.trim() : '-',
         accountHolder: newRef.accountHolder ? newRef.accountHolder.trim() : newRef.partnerName.trim(),
-        commissionRate: Number(newRef.commissionRate) || 20,
+        commissionRate: Number(newRef.commissionRate) || 25,
         discountRate: Number(newRef.discountRate) || 10,
         totalConversions: 0,
         totalRevenue: 0,
@@ -683,7 +656,7 @@ const server = http.createServer(async (req, res) => {
         return;
       }
       res.writeHead(404, { 'Content-Type': MIME_TYPES['.json'] });
-      res.end(JSON.stringify({ success: false, error: 'Buku tidak ditemukan' }));
+      res.end(JSON.stringify({ success: false, error: 'Flipbook tidak ditemukan' }));
     } catch (err) {
       res.writeHead(400, { 'Content-Type': MIME_TYPES['.json'] });
       res.end(JSON.stringify({ success: false, error: 'Gagal mencatat pembacaan' }));
@@ -699,16 +672,16 @@ const server = http.createServer(async (req, res) => {
 
     let totalSystemPageReads = 0;
     books.forEach(b => {
-      totalSystemPageReads += (b.readCount || 10) * (b.pages ? b.pages.length : 4);
+      totalSystemPageReads += (b.readCount || 0) * (b.pages ? b.pages.length : 4);
     });
 
-    const ROYALTY_POOL_RUPIAH = 20000000;
+    const ROYALTY_POOL_RUPIAH = (authors.length === 0 || totalSystemPageReads === 0) ? 0 : 20000000;
 
     const authorsWithStats = authors.map(author => {
       const authorBooks = books.filter(b => b.authorId === author.id || b.author === author.name);
       let authorPageReads = 0;
       authorBooks.forEach(b => {
-        authorPageReads += (b.readCount || 10) * (b.pages ? b.pages.length : 4);
+        authorPageReads += (b.readCount || 0) * (b.pages ? b.pages.length : 4);
       });
 
       const readSharePercent = totalSystemPageReads > 0 ? (authorPageReads / totalSystemPageReads) * 100 : 0;
@@ -811,12 +784,12 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(200, { 'Content-Type': MIME_TYPES['.json'] });
       res.end(JSON.stringify({
         success: true,
-        message: `Buku "${title}" berhasil dikirim untuk proses peninjauan kurasi!`,
+        message: `Flipbook "${title}" berhasil dikirim untuk proses peninjauan kurasi!`,
         data: newSubmission
       }));
     } catch (err) {
       res.writeHead(400, { 'Content-Type': MIME_TYPES['.json'] });
-      res.end(JSON.stringify({ success: false, error: 'Gagal mengunggah buku karya' }));
+      res.end(JSON.stringify({ success: false, error: 'Gagal mengunggah flipbook karya' }));
     }
     return;
   }
@@ -863,12 +836,12 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(200, { 'Content-Type': MIME_TYPES['.json'] });
       res.end(JSON.stringify({
         success: true,
-        message: action === 'approve' ? `Buku "${sub.title}" berhasil disetujui & diterbitkan ke perpustakaan!` : `Buku "${sub.title}" ditolak.`,
+        message: action === 'approve' ? `Flipbook "${sub.title}" berhasil disetujui & diterbitkan ke perpustakaan!` : `Flipbook "${sub.title}" ditolak.`,
         data: sub
       }));
     } catch (err) {
       res.writeHead(400, { 'Content-Type': MIME_TYPES['.json'] });
-      res.end(JSON.stringify({ success: false, error: 'Gagal meninjau pengajuan buku' }));
+      res.end(JSON.stringify({ success: false, error: 'Gagal meninjau pengajuan flipbook' }));
     }
     return;
   }

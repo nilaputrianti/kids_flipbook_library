@@ -44,7 +44,7 @@ let booksCatalog = [
             { text: "Di sebuah area kerja besar, ada excavator ditenagai oleh cairan minyak bermutu tinggi!", icon: "🚜", sfx: "engine", funFact: "Cairan hidrolik di dalam excavator bekerja dengan tekanan lebih dari 300 bar!" },
             { text: "Cairan minyak ditekan masuk ke dalam silinder baja. Ini membuat pengeruk bisa menggali tanah dengan kekuatan puluhan ton!", icon: "💪", sfx: "engine", funFact: "Ekskavator terbesar di dunia bisa memindahkan 240.000 ton tanah setiap hari!" },
             { text: "Roda rantai (crawler track) membuat excavator bisa berjalan melintasi lumpur tanpa mudah tersangkut!", icon: "🛞", sfx: "ambient", funFact: "Roda rantai membagi berat excavator secara merata ke permukaan tanah." },
-            { text: "Insinyur menggunakan excavator untuk menggali pondasi gedung, waduk air, dan saluran irigasi!", icon: "🏗️", sfx: "engine", funFact: "Pondasi yang dalam membuat bangunan aman dari tanah longsor." }
+            { text: "Para ahli menggunakan excavator untuk menggali pondasi gedung, waduk air, dan saluran irigasi!", icon: "🏗️", sfx: "engine", funFact: "Pondasi yang dalam membuat bangunan aman dari tanah longsor." }
         ]
     },
     {
@@ -672,13 +672,13 @@ function setupEventListeners() {
                         body: JSON.stringify({
                             partnerName: `${partnerName} (${phone})`,
                             code,
-                            commissionRate: 30,
+                            commissionRate: 25,
                             discountRate: 10
                         })
                     });
                     const data = await res.json();
                     if (data.success) {
-                        alert(`🎉 Selamat! Pendaftaran Mitra Bagi Hasil "${partnerName}" berhasil!\n\nKode Referal Anda: ${code.toUpperCase()}\nKomisi Bagi Hasil: 30% per transaksi VIP.\nDiskon Murid/Anggota: 10% instan.`);
+                        alert(`🎉 Selamat! Pendaftaran Mitra Bagi Hasil "${partnerName}" berhasil!\n\nKode Referal Anda: ${code.toUpperCase()}\nKomisi Bagi Hasil: 25% per transaksi VIP.\nDiskon Murid/Anggota: 10% instan.`);
                         partnerRegModal.classList.add('hidden');
                         formPartnerReg.reset();
                     } else {
@@ -868,7 +868,7 @@ function setupEventListeners() {
                     });
                     const data = await res.json();
                     if (data.success) {
-                        alert(`🎉 Selamat ${name}!\n\nPendaftaran Mitra Penulis Pustaka Cilik berhasil! Anda sekarang dapat langsung mengunggah karya buku anak Anda untuk dikurasi.`);
+                        alert(`🎉 Selamat ${name}!\n\nPendaftaran Mitra Penulis Pustaka Cilik berhasil! Anda sekarang dapat langsung mengunggah karya flipbook anak Anda untuk dikurasi.`);
                         tabAuthorSubmitBook.click();
                         document.getElementById('authorSubmitName').value = name;
                     } else {
@@ -948,14 +948,14 @@ function setupEventListeners() {
             });
             const data = await res.json();
             if (data.success) {
-                alert(`📚 Buku Karya "${payload.title}" Berhasil Dikirim!\n\nTim kurasi Pustaka Cilik akan meninjau kelayakan buku Anda. Setelah disetujui, buku akan diterbitkan secara nasional dan statistik dibaca Anda akan otomatis tercatat!`);
+                alert(`📚 Flipbook Karya "${payload.title}" Berhasil Dikirim!\n\nTim kurasi Pustaka Cilik akan meninjau kelayakan flipbook Anda. Setelah disetujui, flipbook akan diterbitkan secara nasional dan statistik dibaca Anda akan otomatis tercatat!`);
                 authorPartnerModal.classList.add('hidden');
                 formAuthorSubmitBook.reset();
             } else {
-                alert(`⚠️ Gagal mengirim buku: ${data.error}`);
+                alert(`⚠️ Gagal mengirim flipbook: ${data.error}`);
             }
         } catch (err) {
-            alert(`📚 Buku Karya "${payload.title}" Berhasil Dikirim untuk Dikurasi!`);
+            alert(`📚 Flipbook Karya "${payload.title}" Berhasil Dikirim untuk Dikurasi!`);
             authorPartnerModal.classList.add('hidden');
             formAuthorSubmitBook.reset();
         }
@@ -1101,7 +1101,7 @@ function renderDynamicCategoryPills(categories) {
     let html = `
         <div class="cat-circle-card ${state.currentCategory === 'all' ? 'active' : ''}" data-cat="all">
             <div class="circle-avatar">📚</div>
-            <span class="circle-label">Semua Buku</span>
+            <span class="circle-label">Semua Flipbook</span>
         </div>
     `;
 
@@ -1134,6 +1134,53 @@ function renderDynamicCategoryPills(categories) {
     }
 
     bindCategoryPillEvents(categories);
+    enableDragScroll(gridContainer);
+}
+
+function enableDragScroll(container) {
+    if (!container || container.dataset.dragEnabled) return;
+    container.dataset.dragEnabled = 'true';
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    let isDragging = false;
+
+    container.addEventListener('mousedown', (e) => {
+        isDown = true;
+        isDragging = false;
+        container.classList.add('active-drag');
+        startX = e.pageX - container.offsetLeft;
+        scrollLeft = container.scrollLeft;
+    });
+
+    container.addEventListener('mouseleave', () => {
+        isDown = false;
+        container.classList.remove('active-drag');
+    });
+
+    container.addEventListener('mouseup', () => {
+        isDown = false;
+        container.classList.remove('active-drag');
+    });
+
+    container.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        const x = e.pageX - container.offsetLeft;
+        const walk = (x - startX) * 1.8;
+        if (Math.abs(walk) > 5) {
+            isDragging = true;
+            e.preventDefault();
+            container.scrollLeft = scrollLeft - walk;
+        }
+    });
+
+    container.addEventListener('click', (e) => {
+        if (isDragging) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            isDragging = false;
+        }
+    }, true);
 }
 
 function bindCategoryPillEvents(categories) {
@@ -1144,11 +1191,11 @@ function bindCategoryPillEvents(categories) {
             const cat = circle.getAttribute('data-cat');
             state.currentCategory = cat;
             
-            let catTitle = 'Kategori Buku';
+            let catTitle = 'Kategori Flipbook';
             if (cat === 'all') {
-                catTitle = 'Semua Koleksi Buku Pustaka Cilik';
+                catTitle = 'Semua Koleksi Flipbook Pustaka Cilik';
             } else if (cat === 'favorites') {
-                catTitle = 'Buku Favorit Pilihanmu ⭐';
+                catTitle = 'Flipbook Favorit Pilihanmu ⭐';
             } else {
                 const found = categories.find(c => c.id === cat);
                 if (found) catTitle = found.name;
@@ -1192,7 +1239,7 @@ function renderShelfBooks(category) {
         shelfGrid.innerHTML = `
             <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #64748B;">
                 <i class="fa-solid fa-book-open" style="font-size: 3rem; margin-bottom: 12px; opacity: 0.5;"></i>
-                <h3>Tidak ada buku yang ditemukan</h3>
+                <h3>Tidak ada flipbook yang ditemukan</h3>
                 <p>Coba kata kunci lain atau pilih kategori di atas.</p>
             </div>
         `;
@@ -1301,12 +1348,34 @@ function openBookReader(book) {
     readerBookTitle.textContent = book.title;
 
     const catMap = {
+        'sains': 'Sains & Alam',
+        'sains & alam': 'Sains & Alam',
+        'mesin': 'Teknik & Mesin',
+        'teknik & mesin': 'Teknik & Mesin',
         'machinery': 'Teknik & Mesin',
+        'infrastruktur': 'Jembatan & Infrastruktur',
         'bridges': 'Jembatan & Infrastruktur',
+        'konstruksi': 'Gedung & Konstruksi',
         'buildings': 'Gedung & Konstruksi',
-        'cranes': 'Crane & Struktur'
+        'cranes': 'Crane & Struktur',
+        'hewan': 'Dunia Hewan & Satwa',
+        'tumbuhan': 'Dunia Tumbuhan & Flora',
+        'medis': 'Kesehatan & Medis',
+        'manufaktur': 'Manufaktur & Pabrik',
+        'lalu_lintas': 'Transportasi & Lalu Lintas',
+        'teknologi': 'Teknologi & Robot',
+        'cerita': 'Cerita & Karakter',
+        'pendidikan': 'Pendidikan & Kebudayaan',
+        'bahasa': 'Bahasa & Sastra',
+        'seni': 'Seni & Keterampilan',
+        'matematika': 'Matematika & Logika',
+        'agama': 'Agama & Moral',
+        'kesehatan': 'Kesehatan & Olahraga'
     };
-    readerCategoryBadge.textContent = catMap[book.category] || 'Teknik & Mesin';
+
+    const rawCat = (book.category || '').toString().trim().toLowerCase();
+    const resolvedBadge = catMap[rawCat] || book.category || 'Flipbook Pustaka Cilik';
+    readerCategoryBadge.textContent = resolvedBadge;
 
     const isFav = state.favorites.has(book.id);
     btnBookmark.innerHTML = isFav 
@@ -1339,14 +1408,10 @@ function renderSpreadHtmlForPage(targetPageSpreadNum, side) {
                         <div class="art-grid-overlay"></div>
                         <div class="lock-banner-card">
                             <div class="lock-icon-circle">
-                                <i class="fa-solid fa-crown" style="color: #F59E0B; font-size: 2.2rem;"></i>
+                                <i class="fa-solid fa-crown" style="color: #F59E0B;"></i>
                             </div>
                             <h3 class="lock-title">Pratinjau Gratis Berakhir 📖</h3>
-                            <p class="lock-desc">Kamu telah membaca 4 halaman awal gratis dari buku flipbook ini.</p>
-                            <div class="lock-feature-badges">
-                                <span class="badge-mini"><i class="fa-solid fa-circle-check"></i> 100+ Flipbook Insinyur Cilik</span>
-                                <span class="badge-mini"><i class="fa-solid fa-circle-check"></i> Audio Narasi Asli & Unduh Offline</span>
-                            </div>
+                            <p class="lock-desc">Kamu telah membaca 4 halaman awal gratis dari flipbook ini.</p>
                         </div>
                     </div>
                 </div>
@@ -1358,12 +1423,15 @@ function renderSpreadHtmlForPage(targetPageSpreadNum, side) {
                         <div class="art-grid-overlay"></div>
                         <div class="lock-cta-card">
                             <div class="vip-ticket-badge">
-                                <i class="fa-solid fa-ticket-simple" style="font-size: 2rem; color: #0EA5E9;"></i>
+                                <i class="fa-solid fa-ticket-simple" style="color: #0EA5E9;"></i>
                             </div>
                             <h3 class="lock-cta-title">Buka Akses Penuh VIP!</h3>
                             <p class="lock-cta-desc">Daftarkan akun keluarga untuk membaca kelanjutan cerita & akses seluruh koleksi.</p>
-                            <button class="btn-lock-action">
-                                <i class="fa-solid fa-user-plus"></i> DAFTAR & BUKA AKSES PENUH
+                            <button class="btn-lock-action" id="btnLockRegister">
+                                DAFTAR & BUKA AKSES
+                            </button>
+                            <button class="btn-lock-secondary" id="btnLockLogin">
+                                Sudah punya akun? <strong>Masuk di Sini</strong>
                             </button>
                         </div>
                     </div>
@@ -1502,14 +1570,10 @@ function updateReaderPages() {
                     <div class="art-grid-overlay"></div>
                     <div class="lock-banner-card">
                         <div class="lock-icon-circle">
-                            <i class="fa-solid fa-crown" style="color: #F59E0B; font-size: 2.2rem;"></i>
+                            <i class="fa-solid fa-crown" style="color: #F59E0B;"></i>
                         </div>
                         <h3 class="lock-title">Pratinjau Gratis Berakhir 📖</h3>
-                        <p class="lock-desc">Kamu telah membaca 4 halaman awal gratis dari buku flipbook ini.</p>
-                        <div class="lock-feature-badges">
-                            <span class="badge-mini"><i class="fa-solid fa-circle-check"></i> 100+ Flipbook Insinyur Cilik</span>
-                            <span class="badge-mini"><i class="fa-solid fa-circle-check"></i> Audio Narasi Asli & Unduh Offline</span>
-                        </div>
+                        <p class="lock-desc">Kamu telah membaca 4 halaman awal gratis dari flipbook ini.</p>
                     </div>
                 </div>
             </div>
@@ -1521,12 +1585,12 @@ function updateReaderPages() {
                     <div class="art-grid-overlay"></div>
                     <div class="lock-cta-card">
                         <div class="vip-ticket-badge">
-                            <i class="fa-solid fa-ticket-simple" style="font-size: 2rem; color: #0EA5E9;"></i>
+                            <i class="fa-solid fa-ticket-simple" style="color: #0EA5E9;"></i>
                         </div>
                         <h3 class="lock-cta-title">Buka Akses Penuh VIP!</h3>
                         <p class="lock-cta-desc">Daftarkan akun keluarga untuk membaca kelanjutan cerita & akses seluruh koleksi.</p>
                         <button class="btn-lock-action" id="btnLockRegister">
-                            <i class="fa-solid fa-user-plus"></i> DAFTAR & BUKA AKSES PENUH
+                            DAFTAR & BUKA AKSES
                         </button>
                         <button class="btn-lock-secondary" id="btnLockLogin">
                             Sudah punya akun? <strong>Masuk di Sini</strong>
@@ -1810,8 +1874,8 @@ function saveBookForOfflineReading(book) {
             localStorage.setItem('pustaka_offline_books', JSON.stringify(savedOffline));
         }
 
-        alert(`📌 Berhasil Menyimpan Buku "${book.title}" untuk Dibaca Offline!\n\nBuku ini telah tersimpan terenkripsi di dalam aplikasi Pustaka Cilik. Anda dan si kecil dapat membacanya kapan saja tanpa kuota internet selama langganan VIP Anda aktif.`);
+        alert(`📌 Berhasil Menyimpan Flipbook "${book.title}" untuk Dibaca Offline!\n\nBuku ini telah tersimpan terenkripsi di dalam aplikasi Pustaka Cilik. Anda dan si kecil dapat membacanya kapan saja tanpa kuota internet selama langganan VIP Anda aktif.`);
     } catch (err) {
-        alert(`📌 Buku "${book.title}" Siap Dibaca Offline!\n\nAkses baca offline berlaku selama langganan VIP Anda aktif.`);
+        alert(`📌 Flipbook "${book.title}" Siap Dibaca Offline!\n\nAkses baca offline berlaku selama langganan VIP Anda aktif.`);
     }
 }

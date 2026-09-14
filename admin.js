@@ -257,7 +257,7 @@ function renderCategoriesTable(categories) {
     if (!tbody) return;
 
     if (!categories || categories.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding:20px; color:#64748B;">Belum ada kategori buku. Silakan tambah di form sebelah kiri.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding:20px; color:#64748B;">Belum ada kategori flipbook. Silakan tambah di form sebelah kiri.</td></tr>`;
         return;
     }
 
@@ -487,7 +487,7 @@ function renderAuthorsTables(data) {
     const authors = data.data || [];
     const submissions = data.pendingSubmissions || [];
     const totalReads = data.totalSystemPageReads || 0;
-    const royaltyPool = data.royaltyPoolRupiah || 20000000;
+    const royaltyPool = (data.royaltyPoolRupiah !== undefined) ? data.royaltyPoolRupiah : 0;
 
     const statTotalAuthors = document.getElementById('statTotalAuthors');
     const statTotalSystemReads = document.getElementById('statTotalSystemReads');
@@ -506,7 +506,7 @@ function renderAuthorsTables(data) {
                 <tr>
                     <td colspan="6" class="text-center" style="padding: 24px; color: #64748B;">
                         <i class="fa-solid fa-circle-check" style="color: #10B981; font-size: 1.5rem; display: block; margin-bottom: 6px;"></i>
-                        Belum ada pengajuan buku baru yang menunggu kurasi admin.
+                        Belum ada pengajuan flipbook baru yang menunggu kurasi admin.
                     </td>
                 </tr>
             `;
@@ -551,7 +551,7 @@ function renderAuthorsTables(data) {
 }
 
 async function reviewAuthorBook(submissionId, action) {
-    if (!confirm(action === 'approve' ? 'Setujui dan terbitkan buku ini ke perpustakaan publik Pustaka Cilik?' : 'Tolak pengajuan buku ini?')) return;
+    if (!confirm(action === 'approve' ? 'Setujui dan terbitkan flipbook ini ke perpustakaan publik Pustaka Cilik?' : 'Tolak pengajuan flipbook ini?')) return;
     try {
         const res = await fetch('/api/authors/review-book', {
             method: 'POST',
@@ -567,7 +567,7 @@ async function reviewAuthorBook(submissionId, action) {
             alert(`⚠️ Error: ${data.error}`);
         }
     } catch (err) {
-        alert('Proses kurasi buku berhasil!');
+        alert('Proses kurasi flipbook berhasil!');
         fetchAuthorsData();
     }
 }
@@ -806,7 +806,7 @@ function renderBooksTable() {
         }
 
         const categoryBadge = getCategoryBadgeHtml(book);
-        const bookTitle = escapeHtml(book.title || 'Buku Tanpa Judul');
+        const bookTitle = escapeHtml(book.title || 'Flipbook Tanpa Judul');
         const bookDesc = escapeHtml(book.description || 'Tidak ada deskripsi');
         const totalPages = book.totalPages || (book.pages ? book.pages.length * 2 : 8);
 
@@ -896,7 +896,7 @@ function bindTableActionEvents() {
     document.querySelectorAll('.btn-delete').forEach(btn => {
         btn.addEventListener('click', async () => {
             const id = btn.getAttribute('data-id');
-            if (confirm('Apakah Anda yakin ingin menghapus buku flipbook ini secara permanen?')) {
+            if (confirm('Apakah Anda yakin ingin menghapus flipbook flipbook ini secara permanen?')) {
                 try {
                     const res = await fetch(`/api/books/${id}`, { method: 'DELETE' });
                     const data = await res.json();
@@ -982,7 +982,7 @@ function setupEventListeners() {
                 coverImgPreview.src = uploadedUrl;
                 coverImgPreviewContainer.classList.remove('hidden');
                 coverImgPreviewContainer.style.display = 'flex';
-                alert('✅ File gambar sampul buku berhasil diunggah!');
+                alert('✅ File gambar sampul flipbook berhasil diunggah!');
             } catch (err) {
                 alert('❌ Gagal mengunggah file gambar sampul: ' + err);
             }
@@ -1175,7 +1175,7 @@ async function handleSaveBookMeta(e) {
 
         const data = await res.json();
         if (data.success) {
-            alert('✅ ' + (data.message || 'Metadata & sampul buku berhasil disimpan!'));
+            alert('✅ ' + (data.message || 'Metadata & sampul flipbook berhasil disimpan!'));
             bookMetaModal.classList.add('hidden');
             fetchStats();
             fetchBooks();
@@ -1194,7 +1194,7 @@ function openPageEditorModal(bookId) {
     const book = booksData.find(b => b.id === bookId);
     if (!book) return;
 
-    editingBookSubTitle.textContent = `Buku: ${book.title}`;
+    editingBookSubTitle.textContent = `Flipbook: ${book.title}`;
     pagesSpreadsContainer.innerHTML = '';
 
     const pages = book.pages || [];

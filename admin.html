@@ -29,7 +29,7 @@
 
                 <div class="admin-header-nav">
                     <button class="nav-tab active" id="tabBooks"><i class="fa-solid fa-book"></i> Konten Flipbook</button>
-                    <button class="nav-tab" id="tabCategories"><i class="fa-solid fa-layer-group"></i> Kelola Kategori Buku</button>
+                    <button class="nav-tab" id="tabCategories"><i class="fa-solid fa-layer-group"></i> Kelola Kategori Flipbook</button>
                     <button class="nav-tab" id="tabReferrals"><i class="fa-solid fa-handshake"></i> Bagi Hasil Referal</button>
                     <button class="nav-tab" id="tabAuthors"><i class="fa-solid fa-feather-pointed"></i> Mitra Penulis & Royalti</button>
                     <a href="index.html" class="btn btn-sm btn-outline-light" target="_blank">
@@ -74,7 +74,7 @@
                         <div class="stat-icon"><i class="fa-solid fa-cloud-check"></i></div>
                         <div class="stat-info">
                             <span class="stat-num" id="statPublished">0</span>
-                            <span class="stat-name">Buku Status Terbit</span>
+                            <span class="stat-name">Flipbook Status Terbit</span>
                         </div>
                     </div>
                 </section>
@@ -84,7 +84,7 @@
                     <div class="search-filter-wrapper">
                         <div class="admin-search-box">
                             <i class="fa-solid fa-magnifying-glass"></i>
-                            <input type="text" id="adminSearchInput" placeholder="Cari buku berdasarkan judul atau deskripsi...">
+                            <input type="text" id="adminSearchInput" placeholder="Cari flipbook berdasarkan judul atau deskripsi...">
                         </div>
 
                         <select id="adminCatFilter" class="admin-select">
@@ -110,7 +110,7 @@
                             <thead>
                                 <tr>
                                     <th>Cover / Sampul</th>
-                                    <th>Judul Buku</th>
+                                    <th>Judul Flipbook</th>
                                     <th>Kategori</th>
                                     <th>Jumlah Hal.</th>
                                     <th>Status File</th>
@@ -259,11 +259,11 @@
                     </div>
                 </section>
 
-                <!-- TABEL KURASI BUKU PENGAJUAN PENULIS -->
+                <!-- TABEL KURASI FLIPBOOK PENGAJUAN PENULIS -->
                 <section class="admin-table-container" style="margin-bottom: 24px;">
                     <div class="table-header">
-                        <h2><i class="fa-solid fa-clipboard-check"></i> Kurasi Buku Pengajuan Mitra Penulis</h2>
-                        <p>Tinjau dan kurasi kelayakan buku karya sebelum diterbitkan secara publik di aplikasi Pustaka Cilik.</p>
+                        <h2><i class="fa-solid fa-clipboard-check"></i> Kurasi Flipbook Pengajuan Mitra Penulis</h2>
+                        <p>Tinjau dan kurasi kelayakan flipbook karya sebelum diterbitkan secara publik di aplikasi Pustaka Cilik.</p>
                     </div>
 
                     <div class="table-wrapper">
@@ -272,7 +272,7 @@
                                 <tr>
                                     <th>Tanggal Pengajuan</th>
                                     <th>Nama Penulis</th>
-                                    <th>Judul Buku Karya</th>
+                                    <th>Judul Flipbook Karya</th>
                                     <th>Kategori & Usia</th>
                                     <th>Status Kurasi</th>
                                     <th>Aksi Kurasi Admin</th>
@@ -280,7 +280,7 @@
                             </thead>
                             <tbody id="tbodyAuthorSubmissions">
                                 <tr>
-                                    <td colspan="6" class="text-center">Memuat daftar pengajuan buku...</td>
+                                    <td colspan="6" class="text-center">Memuat daftar pengajuan flipbook...</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -317,7 +317,7 @@
 
             </div>
 
-            <!-- SECTION 4: KELOLA KATEGORI BUKU & GAMBAR KATEGORI -->
+            <!-- SECTION 4: KELOLA KATEGORI FLIPBOOK & GAMBAR KATEGORI -->
             <div id="sectionCategories" class="admin-section hidden">
                 <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 24px;">
                     
@@ -358,10 +358,10 @@
                         </form>
                     </section>
 
-                    <!-- TABEL DAFTAR KATEGORI BUKU -->
+                    <!-- TABEL DAFTAR KATEGORI FLIPBOOK -->
                     <section class="admin-table-card flex-fill" style="background:#FFF; padding:20px; border-radius:16px; border:1.5px solid #E2E8F0; box-shadow:0 4px 14px rgba(0,0,0,0.04);">
                         <div class="table-header" style="border-bottom:1.5px dashed #E2E8F0; padding-bottom:12px; margin-bottom:16px;">
-                            <h2 style="font-size:1.1rem; color:#0F172A; margin:0;"><i class="fa-solid fa-layer-group" style="color:#0EA5E9;"></i> Daftar Kategori Buku Aktif</h2>
+                            <h2 style="font-size:1.1rem; color:#0F172A; margin:0;"><i class="fa-solid fa-layer-group" style="color:#0EA5E9;"></i> Daftar Kategori Flipbook Aktif</h2>
                         </div>
                         <div class="table-responsive">
                             <table class="cms-table" style="width:100%; border-collapse:collapse;">
@@ -386,7 +386,7 @@
 
     </div>
 
-    <!-- MODAL 1: FORM BUAT / EDIT METADATA BUKU & UPLOAD FILE SAMPUL -->
+    <!-- MODAL 1: FORM BUAT / EDIT METADATA FLIPBOOK & UPLOAD FILE SAMPUL -->
     <div id="bookMetaModal" class="admin-modal-overlay hidden">
         <div class="admin-modal-card">
             <div class="admin-modal-header">
@@ -420,7 +420,7 @@
                     </select>
                 </div>
 
-                <!-- UPLOAD FILE GAMBAR SAMPUL COVER BUKU -->
+                <!-- UPLOAD FILE GAMBAR SAMPUL COVER FLIPBOOK -->
                 <div class="form-group-admin file-upload-box">
                     <label><i class="fa-solid fa-image"></i> Upload File Gambar Sampul (Cover Image):</label>
                     <div class="file-dropzone-ui">
@@ -438,13 +438,13 @@
                 </div>
 
                 <div class="form-group-admin">
-                    <label for="inputBookDesc">Deskripsi Ringkas Buku:</label>
-                    <textarea id="inputBookDesc" rows="3" placeholder="Penjelasan singkat mengenai konten buku ini..."></textarea>
+                    <label for="inputBookDesc">Deskripsi Ringkas Flipbook:</label>
+                    <textarea id="inputBookDesc" rows="3" placeholder="Penjelasan singkat mengenai konten flipbook ini..."></textarea>
                 </div>
 
                 <div class="admin-modal-footer">
                     <button type="button" class="btn btn-secondary-admin" id="btnCancelMeta">Batal</button>
-                    <button type="submit" class="btn btn-primary-admin"><i class="fa-solid fa-floppy-disk"></i> Simpan Metadata Buku</button>
+                    <button type="submit" class="btn btn-primary-admin"><i class="fa-solid fa-floppy-disk"></i> Simpan Metadata Flipbook</button>
                 </div>
             </form>
         </div>
@@ -456,7 +456,7 @@
             <div class="admin-modal-header">
                 <div>
                     <h3><i class="fa-solid fa-images"></i> Upload Gambar & Editor Konten Halaman</h3>
-                    <span class="sub-heading-info" id="editingBookSubTitle">Buku: Rahasia Mesin Excavator</span>
+                    <span class="sub-heading-info" id="editingBookSubTitle">Flipbook: Rahasia Mesin Excavator</span>
                 </div>
                 <button class="btn-close-admin" id="btnClosePageModal"><i class="fa-solid fa-xmark"></i></button>
             </div>
@@ -467,7 +467,7 @@
                         <strong style="color:#0284C7;font-size:1.05rem;display:flex;align-items:center;gap:8px;">
                             <i class="fa-solid fa-book-open" style="color:#0EA5E9;"></i> Editor Konten Halaman Flipbook:
                         </strong>
-                        <div style="font-size:0.85rem;color:#475569;margin-top:2px;">Buku dapat dibuat lebih dari 10 halaman (tanpa batas). Klik tombol hijau untuk menambah lembar halaman baru (+2 Hal).</div>
+                        <div style="font-size:0.85rem;color:#475569;margin-top:2px;">Flipbook dapat dibuat lebih dari 10 halaman (tanpa batas). Klik tombol hijau untuk menambah lembar halaman baru (+2 Hal).</div>
                     </div>
                     <div style="display:flex;align-items:center;gap:12px;margin-left:auto;">
                         <span class="pages-count-indicator" id="pageSpreadsCount" style="background:#0EA5E9;color:#FFF;font-weight:800;padding:6px 14px;border-radius:20px;font-size:0.9rem;">Total: 5 Lembar (10 Halaman)</span>
