@@ -4,16 +4,16 @@
    ------------------------------------------------------------- */
 
 :root {
-    --admin-blue-main: #0EA5E9;
-    --admin-blue-dark: #0284C7;
-    --admin-gold: #F59E0B;
-    --admin-gold-light: #FFD166;
-    --admin-emerald: #10B981;
-    --admin-bg-light: #F8FAFC;
+    --admin-blue-main: #7BED9F;
+    --admin-blue-dark: #056538;
+    --admin-gold: #FF7F50;
+    --admin-gold-light: #FFEAA7;
+    --admin-emerald: #2ED573;
+    --admin-bg-light: #F7FCF9;
     --admin-card-bg: #FFFFFF;
     --admin-text-dark: #0F172A;
-    --admin-text-muted: #64748B;
-    --admin-border: #E2E8F0;
+    --admin-text-muted: #475569;
+    --admin-border: #D4F6E2;
     --font-heading: 'Fredoka', cursive, sans-serif;
     --font-body: 'Nunito', sans-serif;
 }

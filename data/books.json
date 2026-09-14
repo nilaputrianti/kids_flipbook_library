@@ -487,8 +487,8 @@
     ],
     "createdAt": "2026-09-13T13:50:35.421Z",
     "updatedAt": "2026-09-13T13:51:47.914Z",
-    "readCount": 8,
-    "totalPageReads": 144
+    "readCount": 10,
+    "totalPageReads": 180
   },
   {
     "id": "book-1789305870086",
@@ -1478,8 +1478,8 @@
     ],
     "createdAt": "2026-09-13T12:26:08.838Z",
     "updatedAt": "2026-09-13T12:27:27.528Z",
-    "readCount": 1,
-    "totalPageReads": 17
+    "readCount": 2,
+    "totalPageReads": 34
   },
   {
     "id": "book-1789223863786",
@@ -1956,8 +1956,8 @@
     ],
     "createdAt": "2026-09-12T14:35:45.375Z",
     "updatedAt": "2026-09-12T14:36:51.841Z",
-    "readCount": 2,
-    "totalPageReads": 36
+    "readCount": 3,
+    "totalPageReads": 54
   },
   {
     "id": "book-1789223616302",
@@ -2504,8 +2504,8 @@
     ],
     "createdAt": "2026-09-12T14:27:17.555Z",
     "updatedAt": "2026-09-12T14:28:20.596Z",
-    "readCount": 3,
-    "totalPageReads": 24
+    "readCount": 4,
+    "totalPageReads": 32
   },
   {
     "id": "book-1788773760365",
@@ -3000,8 +3000,8 @@
     ],
     "createdAt": "2026-09-07T08:08:24.344Z",
     "updatedAt": "2026-09-07T08:09:30.180Z",
-    "readCount": 1,
-    "totalPageReads": 18
+    "readCount": 2,
+    "totalPageReads": 36
   },
   {
     "id": "book-1788768387027",
@@ -3858,8 +3858,8 @@
     ],
     "createdAt": "2026-09-07T07:58:06.581Z",
     "updatedAt": "2026-09-07T07:59:18.345Z",
-    "readCount": 1,
-    "totalPageReads": 17
+    "readCount": 2,
+    "totalPageReads": 34
   },
   {
     "id": "book-1788713714865",
@@ -5206,8 +5206,8 @@
     ],
     "createdAt": "2026-09-06T16:45:04.449Z",
     "updatedAt": "2026-09-06T16:46:05.500Z",
-    "readCount": 0,
-    "totalPageReads": 0
+    "readCount": 1,
+    "totalPageReads": 13
   },
   {
     "id": "book-1788713006695",
